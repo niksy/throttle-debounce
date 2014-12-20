@@ -1,0 +1,25 @@
+{{> top title="Basic"}}
+
+	Try resizing your window and watch <code>console</code> output.
+
+	<script>
+
+		var debounced = debounce(1000, function () {
+			console.log('Debounced');
+		});
+
+		var throttled = throttle(1000, function () {
+			console.log('Throttled');
+		});
+
+		if ( window.addEventListener ) {
+			window.addEventListener('resize', debounced, false);
+			window.addEventListener('resize', throttled, false);
+		} else if ( window.attachEvent )  {
+			window.attachEvent('onresize', debounced);
+			window.attachEvent('onresize', throttled);
+		}
+
+	</script>
+
+{{> bottom}}
