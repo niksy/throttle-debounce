@@ -74,7 +74,8 @@ module.exports = function ( grunt ) {
 		browserify: {
 			standalone: {
 				options: {
-					plugin: ['bundle-collapser/plugin']
+					plugin: ['bundle-collapser/plugin'],
+					transform: ['browserify-shim']
 				},
 				files: {
 					'compiled/<%= pkg.main %>': ['lib/standalone/index.js']
