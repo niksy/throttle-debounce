@@ -14,9 +14,6 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies": {
-    "jquery": "^1.11.2"
-  },
   "devDependencies": {
     "browserify-shim": "^3.8.0",
     "bundle-collapser": "^1.1.0",
@@ -32,7 +29,8 @@
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jscs": "^0.6.1",
-    "load-grunt-tasks": "^0.6.0"
+    "load-grunt-tasks": "^0.6.0",
+    "jquery": "^1.11.2"
   },
   "browserify-shim": {
     "jquery": "global:$"
