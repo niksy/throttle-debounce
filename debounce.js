@@ -1,3 +1,5 @@
+/* eslint-disable no-undefined */
+
 var throttle = require('./throttle');
 
 /**

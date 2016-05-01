@@ -1,24 +1,35 @@
 # throttle-debounce
 
+[![Build Status][ci-img]][ci]
+
 Throttle/debounce your functions.
 
-This module is the same as [jquery-throttle-debounce](https://github.com/cowboy/jquery-throttle-debounce), but it’s transferred to CommonJS so it can be easily used with tools like Browserify, RequireJS or Webpack without polluting global namespace.
+This module is the same as [jquery-throttle-debounce][jquery-throttle-debounce] ([with some differences](#differences-with-original-module)), but it’s transferred to CommonJS so it can be easily used with tools like Browserify or Webpack.
 
-For convenience, standalone version is also provided and it maps to jQuery namespace if it exists, otherwise it adds two methods to global (`window`) namespace.
-
-Throttle/debounce allows you to rate-limit your functions in multiple useful ways. Passing a delay and callback to `throttle` returns a new function that will execute no more than once every delay milliseconds. Passing a delay and callback to `debounce` returns a new function that will execute only once, coalescing multiple sequential calls into a single execution at either the very beginning or end.
-
-## Installation
+## Install
 
 ```sh
 npm install throttle-debounce --save
+```
 
-bower install throttle-debounce --save
+## Usage
+
+```js
+var throttle = require('throttle-debounce/throttle');
+var debounce = require('throttle-debounce/debounce');
+
+throttle(300, function () {
+	// Throttled function
+});
+
+debounce(300, function () {
+	// Debounced function
+});
 ```
 
 ## API
 
-### `throttle(delay, noTrailing, callback, debounceMode)`
+### throttle(delay, noTrailing, callback, debounceMode)
 
 Returns: `Function`
 
@@ -48,7 +59,7 @@ Type: `Boolean`
 
 If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end), schedule `callback` to execute after `delay` ms.
 
-### `debounce(delay, atBegin, callback)`
+### debounce(delay, atBegin, callback)
 
 Returns: `Function`
 
@@ -72,26 +83,10 @@ Type: `Function`
 
 A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is, to `callback` when the debounced-function is executed.
 
-## Examples
+## Differences with original module
 
-```js
-var td = require('throttle-debounce');
-td.throttle(300, function () {
-	// Throttled function
-});
-td.debounce(300, function () {
-	// Debounced function
-});
-```
-
-### AMD and global
-
-```js
-define(['throttle-debounce'], cb);
-
-window.$.throttle; // if there is no $, then use `window.throttle`
-window.$.debounce; // if there is no $, then use `window.debounce`
-```
+* Dependancy on jQuery is removed, so if you rely on GUIDs set by jQuery, plan accordingly
+* There is no standalone version available, so don’t rely on `$.throttle` and `$.debounce` to be available
 
 ## Browser support
 
@@ -99,10 +94,9 @@ Tested in IE8+ and all modern browsers.
 
 ## License
 
-MIT © [Ivan Nikolić](http://ivannikolic.com)
+**Original module license:** Copyright (c) 2010 "Cowboy" Ben Alman (Dual licensed under the MIT and GPL licenses. http://benalman.com/about/license/)  
+**This module license:** MIT © [Ivan Nikolić](http://ivannikolic.com)
 
----
-
-Copyright (c) 2010 "Cowboy" Ben Alman
-Dual licensed under the MIT and GPL licenses.
-http://benalman.com/about/license/
+[ci]: https://travis-ci.org/niksy/throttle-debounce
+[ci-img]: https://img.shields.io/travis/niksy/throttle-debounce/master.svg
+[jquery-throttle-debounce]: https://github.com/cowboy/jquery-throttle-debounce

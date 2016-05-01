@@ -1,4 +1,4 @@
-var $ = require('jquery');
+/* eslint-disable no-undefined,no-param-reassign,no-shadow */
 
 /**
  * Throttle execution of a function. Especially useful for rate limiting
@@ -27,7 +27,7 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 	var lastExec = 0;
 
 	// `noTrailing` defaults to falsy.
-	if ( typeof(noTrailing) !== 'boolean' ) {
+	if ( typeof noTrailing !== 'boolean' ) {
 		debounceMode = callback;
 		callback = noTrailing;
 		noTrailing = undefined;
@@ -83,13 +83,6 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 			timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
 		}
 
-	}
-
-	// Set the guid of `wrapper` function to the same of original callback, so
-	// it can be removed in jQuery 1.4+ .unbind or .die by using the original
-	// callback as a reference.
-	if ( $ && $.guid ) {
-		wrapper.guid = callback.guid = callback.guid || $.guid++;
 	}
 
 	// Return the wrapper function.

@@ -2,52 +2,49 @@
   "name": "throttle-debounce",
   "version": "0.1.1",
   "description": "Throttle/debounce your functions.",
+  "main": "index.js",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
   "contributors": [
     "Ben Alman (http://benalman.com)"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "eslint {index,test/*}.js && karma start --single-run --browsers PhantomJS"
   },
-  "dependencies": {
-    "jquery": "^1.11.2"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "browserify-shim": "^3.8.0",
-    "bundle-collapser": "^1.1.0",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^3.2.0",
-    "grunt-bump": "^0.0.13",
-    "grunt-compile-handlebars": "^1.0.0",
-    "grunt-concurrent": "^1.0.0",
-    "grunt-contrib-concat": "^0.4.0",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-jscs": "^0.6.1",
-    "load-grunt-tasks": "^0.6.0"
-  },
-  "browserify-shim": {
-    "jquery": "global:$"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/niksy/throttle-debounce.git"
+    "browserify": "^13.0.0",
+    "eslint": "^1.10.3",
+    "eslint-config-niksy": "^1.0.6",
+    "karma": "^0.13.22",
+    "karma-browserify": "^5.0.4",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-mocha-reporter": "^2.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-qunit": "^0.1.9",
+    "mocha": "^2.4.5",
+    "phantomjs-prebuilt": "^2.1.7",
+    "qunitjs": "^1.23.1",
+    "watchify": "^3.7.0"
   },
   "keywords": [
     "throttle",
     "debounce",
     "browserify"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niksy/throttle-debounce.git"
+  },
   "bugs": {
     "url": "https://github.com/niksy/throttle-debounce/issues"
   },
-  "homepage": "https://github.com/niksy/throttle-debounce"
+  "homepage": "https://github.com/niksy/throttle-debounce#readme"
 }
