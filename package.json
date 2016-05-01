@@ -1,6 +1,6 @@
 {
   "name": "throttle-debounce",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Throttle/debounce your functions.",
   "main": "index.js",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
