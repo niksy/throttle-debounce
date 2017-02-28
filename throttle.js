@@ -45,7 +45,7 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 		// Execute `callback` and update the `lastExec` timestamp.
 		function exec () {
 			lastExec = Number(new Date());
-			callback.apply(self, args);
+			return callback.apply(self, args);
 		}
 
 		// If `debounceMode` is true (at begin) this is used to clear the flag
@@ -57,7 +57,7 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 		if ( debounceMode && !timeoutID ) {
 			// Since `wrapper` is being called for the first time and
 			// `debounceMode` is true (at begin), execute `callback`.
-			exec();
+			return exec();
 		}
 
 		// Clear any existing timeout.
@@ -68,7 +68,7 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 		if ( debounceMode === undefined && elapsed > delay ) {
 			// In throttle mode, if `delay` time has been exceeded, execute
 			// `callback`.
-			exec();
+			return exec();
 
 		} else if ( noTrailing !== true ) {
 			// In trailing throttle mode, since `delay` time has not been
