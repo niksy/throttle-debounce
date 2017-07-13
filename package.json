@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Throttle/debounce your functions.",
   "main": "index.js",
+  "typings": "index.d.ts",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
   "contributors": [
     "Ben Alman (http://benalman.com)"
