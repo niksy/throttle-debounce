@@ -97,6 +97,10 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 
 	}
 
+	wrapper.cancel = function () {
+		clearTimeout(timeoutID);
+	}
+
 	// Return the wrapper function.
 	return wrapper;
 
