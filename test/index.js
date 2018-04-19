@@ -269,3 +269,39 @@ test( 'delay, true, callback', function() {
 		}, delay * 2);
 	})
 });
+
+test( 'cancel, callback', function() {
+	expect( 3 );
+	stop();
+
+	var start_time,
+		i = 0,
+		arr = [],
+		fn = function(){
+			arr.push( +new Date() )
+		},
+		debounced = debounce( delay, fn );
+
+	equals( debounced.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+
+	exec_many_times( function(){
+		start_time = start_time || +new Date();
+		i++;
+		debounced.call();
+		debounced.cancel();
+	}, function( callback ){
+		var len = arr.length,
+			done_time = +new Date();
+
+		setTimeout(function(){
+			equals( arr.length, 0, 'callback should not be executed' );
+
+			start_time = null;
+			arr = [];
+			i = 0;
+
+			callback ? callback() : start();
+
+		}, delay * 2);
+	})
+});
