@@ -2,7 +2,7 @@
 
 [![Build Status][ci-img]][ci]
 
-Throttle/debounce your functions.
+Throttle and debounce functions.
 
 This module is the same as [jquery-throttle-debounce][jquery-throttle-debounce] ([with some differences](#differences-with-original-module)), but it’s transferred to CommonJS so it can be easily used with tools like Browserify or Webpack.
 
@@ -90,7 +90,11 @@ A function to be executed after delay milliseconds. The `this` context and all a
 
 ## Browser support
 
-Tested in IE8+ and all modern browsers.
+Tested in IE9+ and all modern browsers.
+
+## Test
+
+For local automated tests, run `npm run test:automated:local` (append `:watch` for watcher support).
 
 ## License
 
@@ -98,5 +102,5 @@ Tested in IE8+ and all modern browsers.
 **This module license:** MIT © [Ivan Nikolić](http://ivannikolic.com)
 
 [ci]: https://travis-ci.org/niksy/throttle-debounce
-[ci-img]: https://img.shields.io/travis/niksy/throttle-debounce/master.svg
+[ci-img]: https://travis-ci.org/niksy/throttle-debounce.svg?branch=master
 [jquery-throttle-debounce]: https://github.com/cowboy/jquery-throttle-debounce
