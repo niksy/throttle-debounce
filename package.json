@@ -1,6 +1,6 @@
 {
   "name": "throttle-debounce",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Throttle/debounce your functions.",
   "main": "index.js",
   "typings": "index.d.ts",
