@@ -4,7 +4,7 @@
 
 Throttle and debounce functions.
 
-This module is the same as [jquery-throttle-debounce][jquery-throttle-debounce] ([with some differences](#differences-with-original-module)), but it’s transferred to CommonJS so it can be easily used with tools like Browserify or Webpack.
+This module is the same as [jquery-throttle-debounce][jquery-throttle-debounce] ([with some differences](#differences-with-original-module)), but it’s transferred to ES Modules and CommonJS format.
 
 ## Install
 
@@ -15,8 +15,7 @@ npm install throttle-debounce --save
 ## Usage
 
 ```js
-var throttle = require('throttle-debounce/throttle');
-var debounce = require('throttle-debounce/debounce');
+import { throttle, debounce } from 'throttle-debounce';
 
 throttle(300, function () {
 	// Throttled function
