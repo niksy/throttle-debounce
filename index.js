@@ -1,7 +1,7 @@
-var throttle = require('./throttle');
-var debounce = require('./debounce');
+import throttle from './throttle';
+import debounce from './debounce';
 
-module.exports = {
-	throttle: throttle,
-	debounce: debounce
+export {
+	throttle,
+	debounce
 };
