@@ -1,6 +1,6 @@
 # throttle-debounce
 
-[![Build Status][ci-img]][ci]
+[![Build Status][ci-img]][ci] [![Mentioned in Awesome Micro npm Packages][awesome-img]][awesome]
 
 Throttle and debounce functions.
 
@@ -103,4 +103,6 @@ For local automated tests, run `npm run test:automated:local` (append `:watch` f
 
 [ci]: https://travis-ci.org/niksy/throttle-debounce
 [ci-img]: https://travis-ci.org/niksy/throttle-debounce.svg?branch=master
+[awesome]: https://github.com/parro-it/awesome-micro-npm-packages
+[awesome-img]: https://awesome.re/mentioned-badge.svg
 [jquery-throttle-debounce]: https://github.com/cowboy/jquery-throttle-debounce
