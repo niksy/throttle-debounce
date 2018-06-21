@@ -52,9 +52,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 			scheduler = debounceMode.scheduler;
 		}
 
-		if (debounceMode.debounceMode !== undefined) {
-			debounceMode = debounceMode.debounceMode;
-		}
+		debounceMode = debounceMode.debounceMode;
 	}
 
 	if ( getTimestamp === undefined ) {
