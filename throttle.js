@@ -28,11 +28,43 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	// Keep track of the last time `callback` was executed.
 	var lastExec = 0;
 
+	// Gets a numeric timestamp, as with Date().
+	var getTimestamp;
+
+	// Drop-in replacement for setTimeout.
+	var scheduler;
+
 	// `noTrailing` defaults to falsy.
 	if ( typeof noTrailing !== 'boolean' ) {
+		scheduler = debounceMode;
 		debounceMode = callback;
 		callback = noTrailing;
 		noTrailing = undefined;
+	}
+
+	// `debounceMode` might actually be a settings object containing the optional parameters
+	if ( typeof debounceMode === 'object') {
+		if (debounceMode.noTrailing !== undefined) {
+			noTrailing = debounceMode.noTrailing;
+		}
+
+		if (debounceMode.scheduler !== undefined) {
+			scheduler = debounceMode.scheduler;
+		}
+
+		if (debounceMode.debounceMode !== undefined) {
+			debounceMode = debounceMode.debounceMode;
+		}
+	}
+
+	if ( getTimestamp === undefined ) {
+		getTimestamp = function () {
+			return Number(new Date());
+		};
+	}
+
+	if ( scheduler === undefined ) {
+		scheduler = setTimeout;
 	}
 
 	/*
@@ -43,12 +75,12 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	function wrapper () {
 
 		var self = this;
-		var elapsed = Number(new Date()) - lastExec;
+		var elapsed = getTimestamp() - lastExec;
 		var args = arguments;
 
 		// Execute `callback` and update the `lastExec` timestamp.
 		function exec () {
-			lastExec = Number(new Date());
+			lastExec = getTimestamp();
 			callback.apply(self, args);
 		}
 
@@ -92,7 +124,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 			 * If `debounceMode` is false (at end), schedule `callback` to
 			 * execute after `delay` ms.
 			 */
-			timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+			timeoutID = scheduler(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
 		}
 
 	}

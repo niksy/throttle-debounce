@@ -58,6 +58,23 @@ Type: `Boolean`
 
 If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end), schedule `callback` to execute after `delay` ms.
 
+### throttle(delay, noTrailing, callback, { debounceMode, getTimestamp, scheduler })
+
+Same `delay`, optional `noTrailing`, and `callback` as before.
+`debounceMode` is instead taken as a member of a settings object, along with `getTimestamp` and `scheduler`.
+
+#### `getTimestamp`
+
+Type: `Function`
+
+Returns a numeric timestamp. Defaults to a function that returns `Number(new Date())`.
+
+#### `scheduler`
+
+Type: `Function`
+
+Drop-in replacement for `setTimeout`. Defaults to `setTimeout` if not provided.
+
 ### debounce(delay, atBegin, callback)
 
 Returns: `Function`
