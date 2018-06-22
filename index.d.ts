@@ -1,7 +1,7 @@
 declare module 'throttle-debounce' {
-	function throttle(delay: number, callback: Function, debounceMode?: boolean): Function;
-	function throttle(delay: number, noTrailing: boolean, callback: Function, debounceMode?: boolean): Function;
+	function throttle<T extends Function>(delay: number, callback: T, debounceMode?: boolean): T;
+	function throttle<T extends Function>(delay: number, noTrailing: boolean, callback: T, debounceMode?: boolean	): T;
 
-	function debounce(delay: number, callback: Function): Function;
-	function debounce(delay: number, atBegin: boolean, callback: Function): Function;
+	function debounce<T extends Function>(delay: number, callback: T): T;
+	function debounce<T extends Function>(delay: number, atBegin: boolean, callback: T): T;
 }
