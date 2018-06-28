@@ -1,17 +1,12 @@
-declare module 'throttle-debounce' {
-  type throttleFn = (
-    delay: number,
-    noTrailing: boolean,
-    callback?: Function,
-    debounceMode?: boolean
-  ) => Function;
+export declare function throttle<T extends (...args: any[]) => any>(
+  delay: number,
+  noTrailing: boolean,
+  callback?: T,
+  debounceMode?: boolean
+);
 
-  type debounceFn = (
-    delay: number,
-    atBegin: boolean,
-    callback?: Function
-  ) => Function;
-
-  const throttle: throttleFn;
-  const debounce: debounceFn;
-}
+export declare function debounce<T extends (...args: any[]) => any>(
+  delay: number,
+  atBegin: boolean,
+  callback?: T
+);
