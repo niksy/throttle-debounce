@@ -17,7 +17,6 @@
     "README.md"
   ],
   "sideEffects": false,
-  "typings": "index.d.ts",
   "directories": {
     "test": "test"
   },
