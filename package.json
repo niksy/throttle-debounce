@@ -1,6 +1,6 @@
 {
   "name": "throttle-debounce",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Throttle and debounce functions.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
@@ -17,7 +17,6 @@
     "README.md"
   ],
   "sideEffects": false,
-  "typings": "index.d.ts",
   "directories": {
     "test": "test"
   },
