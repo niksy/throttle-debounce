@@ -35,6 +35,12 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 		noTrailing = undefined;
 	}
 
+	function cancel () {
+		if ( timeoutID ) {
+			clearTimeout(timeoutID);
+		}
+	}
+
 	/*
 	 * The `wrapper` function encapsulates all of the throttling / debouncing
 	 * functionality and when executed will limit the rate at which `callback`
@@ -69,9 +75,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 		}
 
 		// Clear any existing timeout.
-		if ( timeoutID ) {
-			clearTimeout(timeoutID);
-		}
+		cancel();
 
 		if ( debounceMode === undefined && elapsed > delay ) {
 			/*
@@ -97,9 +101,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 
 	}
 
-	wrapper.cancel = function () {
-		clearTimeout(timeoutID);
-	};
+	wrapper.cancel = cancel;
 
 	// Return the wrapper function.
 	return wrapper;
