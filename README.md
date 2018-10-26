@@ -25,6 +25,18 @@ debounce(300, function () {
 	// Debounced function
 });
 ```
+### cancelling
+
+Debounce and throttle can both be cancelling by calling the `cancel` function.
+
+```js
+ var throttled = throttle(300, function () {
+	// Throttled function
+});
+throttled.cancel();
+```
+
+The logic that is being throttled or debounced will no longer be called.
 
 ## API
 

@@ -24,9 +24,20 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	 * debounce modes.
 	 */
 	var timeoutID;
+	var cancelled = false;
 
 	// Keep track of the last time `callback` was executed.
 	var lastExec = 0;
+
+	// Function to cancel next exec
+	function cancel () {
+		// Clear any existing timeout
+		if ( timeoutID ) {
+			clearTimeout(timeoutID);
+		}
+		cancelled = true;
+	}
+
 
 	// `noTrailing` defaults to falsy.
 	if ( typeof noTrailing !== 'boolean' ) {
@@ -45,6 +56,10 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 		var self = this;
 		var elapsed = Number(new Date()) - lastExec;
 		var args = arguments;
+
+		if (cancelled) {
+			return;
+		}
 
 		// Execute `callback` and update the `lastExec` timestamp.
 		function exec () {
@@ -96,6 +111,8 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 		}
 
 	}
+
+	wrapper.cancel = cancel;
 
 	// Return the wrapper function.
 	return wrapper;
