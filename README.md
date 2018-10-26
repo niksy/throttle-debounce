@@ -94,10 +94,6 @@ Type: `Function`
 
 A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is, to `callback` when the debounced-function is executed.
 
-## Cancelling
-
-`throttle` and `debounce` return functions that have a `.cancel()` method, which can be used to cancel any scheduled calls.
-
 ## Differences with original module
 
 * Dependancy on jQuery is removed, so if you rely on GUIDs set by jQuery, plan accordingly
