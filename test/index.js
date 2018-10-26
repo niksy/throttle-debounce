@@ -313,7 +313,7 @@ test('cancel', function() {
 		var len = arr.length;
 
 		setTimeout(function(){
-			equals( arr.length, 0, 'callback was executed never' );
+			equals( arr.length, 0, 'callback should not be executed' );
 
 			start_time = null;
 			arr = [];
@@ -323,5 +323,4 @@ test('cancel', function() {
 
 		}, delay * 2);
 	})
-
 });
