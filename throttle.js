@@ -29,12 +29,16 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	// Keep track of the last time `callback` was executed.
 	var lastExec = 0;
 
-	// Function to cancel next exec
-	function cancel () {
-		// Clear any existing timeout
+	// Function to clear existing timeout
+	function clearExistingTimeout () {
 		if ( timeoutID ) {
 			clearTimeout(timeoutID);
 		}
+	}
+
+	// Function to cancel next exec
+	function cancel () {
+		clearExistingTimeout();
 		cancelled = true;
 	}
 
@@ -83,10 +87,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 			exec();
 		}
 
-		// Clear any existing timeout.
-		if ( timeoutID ) {
-			clearTimeout(timeoutID);
-		}
+		clearExistingTimeout();
 
 		if ( debounceMode === undefined && elapsed > delay ) {
 			/*
