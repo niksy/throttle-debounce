@@ -17,20 +17,20 @@ npm install throttle-debounce --save
 ```js
 import { throttle, debounce } from 'throttle-debounce';
 
-throttle(300, function () {
+throttle(300, () => {
 	// Throttled function
 });
 
-debounce(300, function () {
+debounce(300, () => {
 	// Debounced function
 });
 ```
 ### cancelling
 
-Debounce and throttle can both be cancelling by calling the `cancel` function.
+Debounce and throttle can both be cancelled by calling the `cancel` function.
 
 ```js
- var throttled = throttle(300, function () {
+ const throttled = throttle(300, () => {
 	// Throttled function
 });
 throttled.cancel();
