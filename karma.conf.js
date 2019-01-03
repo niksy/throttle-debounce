@@ -46,7 +46,7 @@ module.exports = function ( config ) {
 				flags: ['--no-sandbox']
 			}
 		},
-		browsers: [(process.env.TRAVIS ? 'Chrome-CI' : 'ChromeHeadless')],
+		browsers: [(process.env.TRAVIS ? 'Chrome-CI' : 'Chrome')],
 		singleRun: true,
 		concurrency: Infinity
 	});
