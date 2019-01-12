@@ -58,7 +58,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	function wrapper () {
 
 		var self = this;
-		var elapsed = Number(new Date()) - lastExec;
+		var elapsed = Date.now() - lastExec;
 		var args = arguments;
 
 		if (cancelled) {
@@ -67,7 +67,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 
 		// Execute `callback` and update the `lastExec` timestamp.
 		function exec () {
-			lastExec = Number(new Date());
+			lastExec = Date.now();
 			callback.apply(self, args);
 		}
 
