@@ -17,14 +17,26 @@ npm install throttle-debounce --save
 ```js
 import { throttle, debounce } from 'throttle-debounce';
 
-throttle(300, function () {
+throttle(300, () => {
 	// Throttled function
 });
 
-debounce(300, function () {
+debounce(300, () => {
 	// Debounced function
 });
 ```
+### cancelling
+
+Debounce and throttle can both be cancelled by calling the `cancel` function.
+
+```js
+ const throttled = throttle(300, () => {
+	// Throttled function
+});
+throttled.cancel();
+```
+
+The logic that is being throttled or debounced will no longer be called.
 
 ## API
 
@@ -81,10 +93,6 @@ Optional, defaults to false. If `atBegin` is false or unspecified, callback will
 Type: `Function`
 
 A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is, to `callback` when the debounced-function is executed.
-
-## Cancelling
-
-`throttle` and `debounce` return functions that have a `.cancel()` method, which can be used to cancel any scheduled calls.
 
 ## Differences with original module
 

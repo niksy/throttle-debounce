@@ -157,6 +157,26 @@ test( 'delay, true, callback', function() {
 	})
 });
 
+test('cancel', function() {
+	expect( 2 );
+	stop();
+
+	var callCount = 0,
+		throttled = throttle( delay * 100, false, function() {
+			callCount++;
+		} );
+
+		equals(1, 1);
+
+	throttled.cancel();
+	throttled.call();
+
+	setTimeout(function() {
+		equals(callCount, 0, 'callback should not be called');
+		start();
+	}, delay * 2);
+});
+
 
 module( 'debounce' );
 
@@ -270,7 +290,7 @@ test( 'delay, true, callback', function() {
 	})
 });
 
-test( 'cancel, callback', function() {
+test('cancel', function() {
 	expect( 3 );
 	stop();
 
@@ -280,18 +300,17 @@ test( 'cancel, callback', function() {
 		fn = function(){
 			arr.push( +new Date() )
 		},
-		debounced = debounce( delay, fn );
+		debounced = debounce( delay, true, fn );
 
 	equals( debounced.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
 
+	setTimeout(function() {debounced.cancel();}, delay / 2)
 	exec_many_times( function(){
 		start_time = start_time || +new Date();
 		i++;
 		debounced.call();
-		debounced.cancel();
 	}, function( callback ){
-		var len = arr.length,
-			done_time = +new Date();
+		var len = arr.length;
 
 		setTimeout(function(){
 			equals( arr.length, 0, 'callback should not be executed' );
