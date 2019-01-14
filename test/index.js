@@ -3,16 +3,9 @@
 
 /* Original QUnit test: https://github.com/cowboy/jquery-throttle-debounce/blob/master/unit/unit.js */
 
-var module = require('qunitjs').module;
-var test = require('qunitjs').test;
-var expect = require('qunitjs').expect;
-var ok = require('qunitjs').ok;
-var equals = require('qunitjs').equal;
-var start = require('qunitjs').start;
-var stop = require('qunitjs').stop;
-
-var throttle = require('../throttle');
-var debounce = require('../debounce');
+import { module, test, expect, ok, equal as equals, start, stop } from 'qunitjs';
+import throttle from '../throttle';
+import debounce from '../debounce';
 
 QUnit.config.autostart = false;
 

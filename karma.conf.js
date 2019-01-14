@@ -1,54 +1,77 @@
-/* globals process:false */
-/* eslint-disable no-process-env */
-
 'use strict';
 
-module.exports = function ( config ) {
+const path = require('path');
+const minimist = require('minimist');
 
-	config.set({
-		basePath: '',
-		frameworks: ['browserify', 'qunit'],
-		files: [
-			'test/**/*.html',
-			'test/**/*.js'
-		],
-		exclude: [],
-		preprocessors: {
-			'test/**/*.html': ['html2js'],
-			'test/**/*.js': ['browserify']
-		},
-		reporters: ['mocha'],
-		port: 9001,
-		colors: true,
-		logLevel: config.LOG_INFO,
-		autoWatch: false,
-		client: {
-			captureConsole: true,
-			mocha: {
-				ui: 'bdd'
-			}
-		},
-		browserConsoleLogOptions: {
-			level: 'log',
-			format: '%b %T: %m',
-			terminal: true
-		},
-		browserify: {
-			debug: true,
-			transform: [
-				['rollupify', { config: '.rollup.js', sourceMaps: true }],
+let config;
 
-			]
-		},
+const args = minimist(process.argv.slice(2), {
+	'default': {
+		local: false
+	}
+});
+
+const local = args.local;
+const port = 9001;
+
+if ( local ) {
+	config = {
+		browsers: ['Chrome'],
+	};
+} else {
+	config = {
 		customLaunchers: {
 			'Chrome-CI': {
 				base: 'Chrome',
 				flags: ['--no-sandbox']
 			}
 		},
-		browsers: [(process.env.TRAVIS ? 'Chrome-CI' : 'Chrome')],
+		browsers: [(process.env.TRAVIS ? 'Chrome-CI' : 'Chrome')]
+	};
+}
+
+module.exports = function ( baseConfig ) {
+
+	baseConfig.set(Object.assign({
+		basePath: '',
+		frameworks: ['qunit'],
+		files: [
+			'test/**/.webpack.js'
+		],
+		exclude: [],
+		preprocessors: {
+			'test/**/.webpack.js': ['webpack', 'sourcemap']
+		},
+		reporters: ['mocha'],
+		port: port,
+		colors: true,
+		logLevel: baseConfig.LOG_INFO,
+		autoWatch: false,
+		client: {
+			captureConsole: true
+		},
+		browserConsoleLogOptions: {
+			level: 'log',
+			format: '%b %T: %m',
+			terminal: true
+		},
+		webpack: {
+			mode: 'none',
+			devtool: 'cheap-module-inline-source-map',
+			module: {
+				rules: [
+					{
+						test: /\.js$/,
+						exclude: /node_modules/,
+						use: [{
+							loader: 'babel-loader'
+						}]
+					}
+				]
+			}
+		},
 		singleRun: true,
 		concurrency: Infinity
-	});
+	}, config));
 
 };

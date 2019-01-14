@@ -4,5 +4,19 @@
 		"niksy",
 		"niksy/next",
 		"niksy/browser"
+	],
+	"overrides": [
+		{
+			"files": [
+				"karma.conf.js"
+			],
+			"env": {
+				"node": true,
+				"es6": true
+			},
+			"rules": {
+				"no-console": 0
+			}
+		}
 	]
 }

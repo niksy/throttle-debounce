@@ -1,7 +1,5 @@
 {
 	"extends": [
-		"niksy",
-		"niksy/next",
 		"niksy/tests"
 	]
 }
