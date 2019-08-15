@@ -58,6 +58,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "minimist": "^1.2.0",
+    "nan": "^2.14.0",
     "np": "^3.0.4",
     "qunitjs": "^1.23.1",
     "rollup": "^1.0.0",
