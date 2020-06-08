@@ -14,26 +14,88 @@ npm install throttle-debounce --save
 
 ## Usage
 
+### `throttle`
+
 ```js
-import { throttle, debounce } from 'throttle-debounce';
+import { throttle } from 'throttle-debounce';
 
-throttle(300, () => {
-	// Throttled function
+const throttleFunc = throttle(1000, false, (num) => {
+  console.log('num:', num)
 });
 
-debounce(300, () => {
-	// Debounced function
+// Can also be used like this, because noTrailing is false by default
+const throttleFunc = throttle(1000, () => {
+	console.log('num:', num)
 });
+
+throttleFunc(1) // Will execute the callback
+throttleFunc(2) // Won’t execute callback
+throttleFunc(3) // Won’t execute callback
+
+// Will execute the callback, because noTrailing is false, 
+// but if we set noTrailing to true, this callback won’t be executed
+throttleFunc(4)
+
+setTimeout(() => {
+  throttleFunc(10) // Will execute the callback
+}, 1200)
+
+// Output
+// num: 1
+// num: 4
+// num: 10
 ```
-### cancelling
+
+### `debounce`
+
+```js
+import { debounce } from 'throttle-debounce';
+
+const debounceFunc = debounce(1000, false, (num) => {
+  console.log('num:', num)
+});
+
+// Can also be used like this, because atBegin is false by default
+const debounceFunc = debounce(1000, () => {
+	console.log('num:', num)
+});
+
+// Won’t execute the callback, because atBegin is false, 
+// but if we set atBegin to true, this callback will be executed.
+debounceFunc(1)
+
+debounceFunc(2) // Won’t execute callback
+debounceFunc(3) // Won’t execute callback
+
+// Will execute the callback,
+// but if we set atBegin to true, this callback won’t be executed.
+debounceFunc(4) 
+
+setTimeout(() => {
+  debounceFunc(10) // Will execute the callback
+}, 1200)
+
+// Output
+// num: 4
+// num: 10
+```
+
+### ```cancelling```
 
 Debounce and throttle can both be cancelled by calling the `cancel` function.
 
 ```js
- const throttled = throttle(300, () => {
+const throttleFunc = throttle(300, () => {
 	// Throttled function
 });
-throttled.cancel();
+
+throttleFunc.cancel();
+
+const debounceFunc = debounce(300, () => {
+	// Debounced function
+});
+
+debounceFunc.cancel()
 ```
 
 The logic that is being throttled or debounced will no longer be called.
