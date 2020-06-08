@@ -19,30 +19,28 @@ npm install throttle-debounce --save
 ```js
 import { throttle } from 'throttle-debounce';
 
-// example
-
 const throttleFunc = throttle(1000, false, (num) => {
   console.log('num:', num)
 });
 
-// also can use like this,  because noTrailing is default to false
+// Can also be used like this, because noTrailing is false by default
 const throttleFunc = throttle(1000, () => {
 	console.log('num:', num)
 });
 
-throttleFunc(1) // will execute the callback
-throttleFunc(2) // won't execute callback
-throttleFunc(3) // won't execute callback
+throttleFunc(1) // Will execute the callback
+throttleFunc(2) // Won’t execute callback
+throttleFunc(3) // Won’t execute callback
 
-// will execute the callback, because noTrailing is false, 
-// but if we set noTrailing as true, this callback won't be executed.
+// Will execute the callback, because noTrailing is false, 
+// but if we set noTrailing to true, this callback won’t be executed
 throttleFunc(4)
 
 setTimeout(() => {
-  throttleFunc(10) // will execute the callback
+  throttleFunc(10) // Will execute the callback
 }, 1200)
 
-// output
+// Output
 // num: 1
 // num: 4
 // num: 10
@@ -53,32 +51,31 @@ setTimeout(() => {
 ```js
 import { debounce } from 'throttle-debounce';
 
-// example
-
 const debounceFunc = debounce(1000, false, (num) => {
   console.log('num:', num)
 });
 
-// also can use like this,  because atBegin is default to false
+// Can also be used like this, because atBegin is false by default
 const debounceFunc = debounce(1000, () => {
 	console.log('num:', num)
 });
 
-// won't execute the callback, because atBegin is false, 
-// but if we set atBegin as true, this callback will be executed.
+// Won’t execute the callback, because atBegin is false, 
+// but if we set atBegin to true, this callback will be executed.
 debounceFunc(1)
 
-debounceFunc(2) // won't execute callback
-debounceFunc(3) // won't execute callback
+debounceFunc(2) // Won’t execute callback
+debounceFunc(3) // Won’t execute callback
 
-debounceFunc(4) // will execute the callback, 
-// but if we set atBegin as true, this callback won't be executed.
+// Will execute the callback,
+// but if we set atBegin to true, this callback won’t be executed.
+debounceFunc(4) 
 
 setTimeout(() => {
-  debounceFunc(10) // will execute the callback
+  debounceFunc(10) // Will execute the callback
 }, 1200)
 
-// output
+// Output
 // num: 4
 // num: 10
 ```
