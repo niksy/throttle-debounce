@@ -22,16 +22,15 @@
   },
   "scripts": {
     "build": "rollup --config rollup.config.js",
-    "lint": "eslint '{index,lib/**/*,test/**/*}.js'",
+    "lint": "eslint {index,lib/**/*,test/**/*}.js",
     "prepublish": "npm run build",
     "prepublishOnly": "npm run build",
     "release": "np",
     "test": "npm run lint && npm run test:automated",
-    "test:automated": "BABEL_ENV=test karma start",
-    "test:automated:local": "BABEL_ENV=test karma start --local",
+    "test:automated": "cross-env BABEL_ENV=test xvfb-run karma start",
+    "test:automated:local": "cross-env BABEL_ENV=test karma start --local",
     "test:automated:local:watch": "npm run test:automated:local -- --auto-watch --no-single-run"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
@@ -40,6 +39,7 @@
     "@babel/runtime": "^7.2.0",
     "babel-loader": "^8.0.4",
     "babel-preset-niksy": "^4.1.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.4.0",
     "eslint-config-niksy": "^6.1.0",
     "eslint-plugin-extend": "^0.1.1",
