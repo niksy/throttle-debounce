@@ -1,22 +1,16 @@
 'use strict';
 
 const path = require('path');
-const minimist = require('minimist');
 
 let config;
 
-const args = minimist(process.argv.slice(2), {
-	'default': {
-		local: false
-	}
-});
+const local =
+	typeof process.env.CI === 'undefined' || process.env.CI === 'false';
+const port = process.env.SERVICE_PORT;
 
-const local = args.local;
-const port = 9001;
-
-if ( local ) {
+if (local) {
 	config = {
-		browsers: ['Chrome'],
+		browsers: ['Chrome']
 	};
 } else {
 	config = {
@@ -26,18 +20,15 @@ if ( local ) {
 				flags: ['--no-sandbox']
 			}
 		},
-		browsers: [(process.env.TRAVIS ? 'Chrome-CI' : 'Chrome')]
+		browsers: [!local ? 'Chrome-CI' : 'Chrome']
 	};
 }
 
-module.exports = function ( baseConfig ) {
-
-	baseConfig.set(Object.assign({
+module.exports = function(baseConfig) {
+	baseConfig.set({
 		basePath: '',
 		frameworks: ['qunit'],
-		files: [
-			'test/**/.webpack.js'
-		],
+		files: ['test/**/.webpack.js'],
 		exclude: [],
 		preprocessors: {
 			'test/**/.webpack.js': ['webpack', 'sourcemap']
@@ -63,15 +54,17 @@ module.exports = function ( baseConfig ) {
 					{
 						test: /\.js$/,
 						exclude: /node_modules/,
-						use: [{
-							loader: 'babel-loader'
-						}]
+						use: [
+							{
+								loader: 'babel-loader'
+							}
+						]
 					}
 				]
 			}
 		},
 		singleRun: true,
-		concurrency: Infinity
-	}, config));
-
+		concurrency: Infinity,
+		...config
+	});
 };

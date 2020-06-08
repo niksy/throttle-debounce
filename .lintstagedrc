@@ -1,0 +1,8 @@
+{
+	"*.js": ["eslint --fix", "git add"],
+	"*.md": ["prettier --ignore-path .gitignore --write", "git add"],
+	".!(npm|browserslist)*rc": [
+		"prettier --ignore-path .gitignore --parser json --write",
+		"git add"
+	]
+}

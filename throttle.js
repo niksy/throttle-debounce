@@ -4,20 +4,19 @@
  * Throttle execution of a function. Especially useful for rate limiting
  * execution of handlers on events like resize and scroll.
  *
- * @param  {Number}    delay          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
- * @param  {Boolean}   [noTrailing]   Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
+ * @param  {number}    delay -          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+ * @param  {boolean}   [noTrailing] -   Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
  *                                    throttled-function is being called. If noTrailing is false or unspecified, callback will be executed one final time
  *                                    after the last throttled-function call. (After the throttled-function has not been called for `delay` milliseconds,
- *                                    the internal counter is reset)
- * @param  {Function}  callback       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+ *                                    the internal counter is reset).
+ * @param  {Function}  callback -       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
  *                                    to `callback` when the throttled-function is executed.
- * @param  {Boolean}   [debounceMode] If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
+ * @param  {boolean}   [debounceMode] - If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
  *                                    schedule `callback` to execute after `delay` ms.
  *
- * @return {Function}  A new, throttled, function.
+ * @returns {Function}  A new, throttled, function.
  */
-export default function ( delay, noTrailing, callback, debounceMode ) {
-
+export default function(delay, noTrailing, callback, debounceMode) {
 	/*
 	 * After wrapper has stopped being called, this timeout ensures that
 	 * `callback` is executed at the proper times in `throttle` and `end`
@@ -30,21 +29,20 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	let lastExec = 0;
 
 	// Function to clear existing timeout
-	function clearExistingTimeout () {
-		if ( timeoutID ) {
+	function clearExistingTimeout() {
+		if (timeoutID) {
 			clearTimeout(timeoutID);
 		}
 	}
 
 	// Function to cancel next exec
-	function cancel () {
+	function cancel() {
 		clearExistingTimeout();
 		cancelled = true;
 	}
 
-
 	// `noTrailing` defaults to falsy.
-	if ( typeof noTrailing !== 'boolean' ) {
+	if (typeof noTrailing !== 'boolean') {
 		debounceMode = callback;
 		callback = noTrailing;
 		noTrailing = undefined;
@@ -55,8 +53,7 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	 * functionality and when executed will limit the rate at which `callback`
 	 * is executed.
 	 */
-	function wrapper (...args) {
-
+	function wrapper(...arguments_) {
 		let self = this;
 		let elapsed = Date.now() - lastExec;
 
@@ -65,20 +62,20 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 		}
 
 		// Execute `callback` and update the `lastExec` timestamp.
-		function exec () {
+		function exec() {
 			lastExec = Date.now();
-			callback.apply(self, args);
+			callback.apply(self, arguments_);
 		}
 
 		/*
 		 * If `debounceMode` is true (at begin) this is used to clear the flag
 		 * to allow future `callback` executions.
 		 */
-		function clear () {
+		function clear() {
 			timeoutID = undefined;
 		}
 
-		if ( debounceMode && !timeoutID ) {
+		if (debounceMode && !timeoutID) {
 			/*
 			 * Since `wrapper` is being called for the first time and
 			 * `debounceMode` is true (at begin), execute `callback`.
@@ -88,14 +85,13 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 
 		clearExistingTimeout();
 
-		if ( debounceMode === undefined && elapsed > delay ) {
+		if (debounceMode === undefined && elapsed > delay) {
 			/*
 			 * In throttle mode, if `delay` time has been exceeded, execute
 			 * `callback`.
 			 */
 			exec();
-
-		} else if ( noTrailing !== true ) {
+		} else if (noTrailing !== true) {
 			/*
 			 * In trailing throttle mode, since `delay` time has not been
 			 * exceeded, schedule `callback` to execute `delay` ms after most
@@ -107,14 +103,15 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 			 * If `debounceMode` is false (at end), schedule `callback` to
 			 * execute after `delay` ms.
 			 */
-			timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+			timeoutID = setTimeout(
+				debounceMode ? clear : exec,
+				debounceMode === undefined ? delay - elapsed : delay
+			);
 		}
-
 	}
 
 	wrapper.cancel = cancel;
 
 	// Return the wrapper function.
 	return wrapper;
-
 }

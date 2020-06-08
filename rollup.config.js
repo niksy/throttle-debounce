@@ -6,12 +6,14 @@ module.exports = {
 	input: 'index.js',
 	output: [
 		{
-			file: 'dist/index.cjs.js',
-			format: 'cjs'
+			file: 'index.cjs.js',
+			format: 'cjs',
+			sourcemap: true
 		},
 		{
-			file: 'dist/index.esm.js',
-			format: 'esm'
+			file: 'index.esm.js',
+			format: 'esm',
+			sourcemap: true
 		}
 	],
 	plugins: [
