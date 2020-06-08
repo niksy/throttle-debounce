@@ -23,11 +23,11 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	 * `callback` is executed at the proper times in `throttle` and `end`
 	 * debounce modes.
 	 */
-	let timeoutID;
-	let cancelled = false;
+	var timeoutID;
+	var cancelled = false;
 
 	// Keep track of the last time `callback` was executed.
-	let lastExec = 0;
+	var lastExec = 0;
 
 	// Function to clear existing timeout
 	function clearExistingTimeout () {
@@ -55,10 +55,11 @@ export default function ( delay, noTrailing, callback, debounceMode ) {
 	 * functionality and when executed will limit the rate at which `callback`
 	 * is executed.
 	 */
-	function wrapper (...args) {
+	function wrapper () {
 
-		let self = this;
-		let elapsed = Date.now() - lastExec;
+		var self = this;
+		var elapsed = Date.now() - lastExec;
+		var args = arguments;
 
 		if (cancelled) {
 			return;

@@ -19,19 +19,15 @@ npm install throttle-debounce --save
 ```js
 import { throttle } from 'throttle-debounce';
 
-const throttleFunc = throttle(300, () => {
-	// Throttled function
-});
-
-// which is equals to, because noTrailing is default to false
-const throttleFunc = throttle(1000, false, () => {
-	// Throttled function
-});
-
 // example
 
 const throttleFunc = throttle(1000, false, (num) => {
   console.log('num:', num)
+});
+
+// also can use like this,  because noTrailing is default to false
+const throttleFunc = throttle(1000, () => {
+	console.log('num:', num)
 });
 
 throttleFunc(1) // will execute the callback
@@ -57,19 +53,15 @@ setTimeout(() => {
 ```js
 import { debounce } from 'throttle-debounce';
 
-const debounceFunc = debounce(300, () => {
-	// Debounced function
-});
-
-// which is equals to, because atBegin is default to false
-const debounceFunc = debounce(1000, false, () => {
-	// Debounced function
-});
-
 // example
 
 const debounceFunc = debounce(1000, false, (num) => {
   console.log('num:', num)
+});
+
+// also can use like this,  because atBegin is default to false
+const debounceFunc = debounce(1000, () => {
+	console.log('num:', num)
 });
 
 // won't execute the callback, because atBegin is false, 
