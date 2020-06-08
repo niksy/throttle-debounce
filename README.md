@@ -1,6 +1,7 @@
 # throttle-debounce
 
 [![Build Status][ci-img]][ci]
+[![BrowserStack Status][browserstack-img]][browserstack]
 [![Mentioned in Awesome Micro npm Packages][awesome-img]][awesome]
 
 Throttle and debounce functions.
@@ -203,6 +204,8 @@ support).
 
 [ci]: https://travis-ci.org/niksy/throttle-debounce
 [ci-img]: https://travis-ci.org/niksy/throttle-debounce.svg?branch=master
+[browserstack]: https://www.browserstack.com/
+[browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=QWo5dGJqTzNkMWFnVXZqYzNvVDF1Q2p2Mm84Skc5ZTZFUUlnYkdEcFhQTT0tLTc1bVR3U284Uk9LZEFiSGR0NS8rY1E9PQ==--4a20321e30f225033ed6840c2fb71c6d1a8d2d1a
 [awesome]: https://github.com/parro-it/awesome-micro-npm-packages
 [awesome-img]: https://awesome.re/mentioned-badge.svg
 [jquery-throttle-debounce]: https://github.com/cowboy/jquery-throttle-debounce

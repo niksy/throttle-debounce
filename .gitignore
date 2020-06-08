@@ -3,6 +3,7 @@ node_modules/
 package-lock.json
 yarn.lock
 npm-debug.log
+local.log
 index.cjs.js
 index.esm.js
 index.cjs.js.map

@@ -14,13 +14,46 @@ if (local) {
 	};
 } else {
 	config = {
+		hostname: 'bs-local.com',
+		browserStack: {
+			username: process.env.BROWSER_STACK_USERNAME,
+			accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
+			startTunnel: true,
+			project: 'throttle-debounce',
+			name: 'Automated (Karma)',
+			build: 'Automated (Karma)'
+		},
 		customLaunchers: {
-			'Chrome-CI': {
-				base: 'Chrome',
-				flags: ['--no-sandbox']
+			'BS-Chrome': {
+				base: 'BrowserStack',
+				browser: 'Chrome',
+				os: 'Windows',
+				'os_version': '7',
+				project: 'throttle-debounce',
+				build: 'Automated (Karma)',
+				name: 'Chrome'
+			},
+			'BS-Firefox': {
+				base: 'BrowserStack',
+				browser: 'Firefox',
+				os: 'Windows',
+				'os_version': '7',
+				project: 'throttle-debounce',
+				build: 'Automated (Karma)',
+				name: 'Firefox'
+			},
+			'BS-IE9': {
+				base: 'BrowserStack',
+				browser: 'IE',
+				'browser_version': '9',
+				os: 'Windows',
+				'os_version': '7',
+				project: 'throttle-debounce',
+				build: 'Automated (Karma)',
+				name: 'IE9'
 			}
 		},
-		browsers: [!local ? 'Chrome-CI' : 'Chrome']
+		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9']
 	};
 }
 
