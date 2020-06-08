@@ -23,7 +23,7 @@
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "lint": "eslint '{index,debounce,throttle,test/**/*}.js'",
-    "postpublish": "GITHUB_TOKEN=$GITHUB_RELEASE_TOKEN github-release-from-changelog",
+    "postpublish": "GITHUB_TOKEN=$GITHUB_RELEASE_TOKEN echo 'github-release-from-changelog'",
     "prepublishOnly": "npm run build",
     "release": "np",
     "test": "npm run lint && npm run test:automated",
