@@ -83,7 +83,7 @@ setTimeout(() => {
 // num: 10
 ```
 
-### `cancelling`
+### Cancelling
 
 Debounce and throttle can both be cancelled by calling the `cancel` function.
 
