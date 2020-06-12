@@ -28,7 +28,7 @@ const throttleFunc = throttle(1000, false, (num) => {
 });
 
 // Can also be used like this, because noTrailing is false by default
-const throttleFunc = throttle(1000, () => {
+const throttleFunc = throttle(1000, (num) => {
 	console.log('num:', num);
 });
 
@@ -60,7 +60,7 @@ const debounceFunc = debounce(1000, false, (num) => {
 });
 
 // Can also be used like this, because atBegin is false by default
-const debounceFunc = debounce(1000, () => {
+const debounceFunc = debounce(1000, (num) => {
 	console.log('num:', num);
 });
 
