@@ -4,6 +4,7 @@
   "description": "Throttle and debounce functions.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
+  "browser": "index.umd.js",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
   "contributors": [
     "Ben Alman (http://benalman.com)"
