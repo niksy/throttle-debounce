@@ -12,6 +12,7 @@
   "files": [
     "index.cjs.{js,js.map}",
     "index.esm.{js,js.map}",
+    "index.umd.{js,js.map}",
     "CHANGELOG.md",
     "LICENSE.md",
     "README.md"

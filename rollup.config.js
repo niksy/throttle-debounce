@@ -14,6 +14,12 @@ module.exports = {
 			file: 'index.esm.js',
 			format: 'esm',
 			sourcemap: true
+		},
+		{
+			file: 'index.umd.js',
+			format: 'umd',
+			sourcemap: true,
+			name: 'throttle-debounce.umd.js'
 		}
 	],
 	plugins: [

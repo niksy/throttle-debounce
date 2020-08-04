@@ -14,7 +14,8 @@
 			},
 			"rules": {
 				"no-console": 0
-			}
+			},
+			"excludedFiles": "*.umd.js"
 		}
 	]
 }
