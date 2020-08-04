@@ -1,18 +1,8 @@
-(function(global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined'
-		? factory(exports)
-		: typeof define === 'function' && define.amd
-		? define(['exports'], factory)
-		: ((global = global || self),
-		  factory(
-				((global['throttle-debounce'] =
-					global['throttle-debounce'] || {}),
-				(global['throttle-debounce'].umd =
-					global['throttle-debounce'].umd || {}),
-				(global['throttle-debounce'].umd.js = {}))
-		  ));
-})(this, function(exports) {
-	'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(global = global || self, factory(global.throttleDebounce = {}));
+}(this, (function (exports) { 'use strict';
 
 	/* eslint-disable no-undefined,no-param-reassign,no-shadow */
 
@@ -32,108 +22,104 @@
 	 *
 	 * @returns {Function}  A new, throttled, function.
 	 */
-	function throttle(delay, noTrailing, callback, debounceMode) {
-		/*
-		 * After wrapper has stopped being called, this timeout ensures that
-		 * `callback` is executed at the proper times in `throttle` and `end`
-		 * debounce modes.
-		 */
-		var timeoutID;
-		var cancelled = false; // Keep track of the last time `callback` was executed.
+	function throttle (delay, noTrailing, callback, debounceMode) {
+	  /*
+	   * After wrapper has stopped being called, this timeout ensures that
+	   * `callback` is executed at the proper times in `throttle` and `end`
+	   * debounce modes.
+	   */
+	  var timeoutID;
+	  var cancelled = false; // Keep track of the last time `callback` was executed.
 
-		var lastExec = 0; // Function to clear existing timeout
+	  var lastExec = 0; // Function to clear existing timeout
 
-		function clearExistingTimeout() {
-			if (timeoutID) {
-				clearTimeout(timeoutID);
-			}
-		} // Function to cancel next exec
+	  function clearExistingTimeout() {
+	    if (timeoutID) {
+	      clearTimeout(timeoutID);
+	    }
+	  } // Function to cancel next exec
 
-		function cancel() {
-			clearExistingTimeout();
-			cancelled = true;
-		} // `noTrailing` defaults to falsy.
 
-		if (typeof noTrailing !== 'boolean') {
-			debounceMode = callback;
-			callback = noTrailing;
-			noTrailing = undefined;
-		}
-		/*
-		 * The `wrapper` function encapsulates all of the throttling / debouncing
-		 * functionality and when executed will limit the rate at which `callback`
-		 * is executed.
-		 */
+	  function cancel() {
+	    clearExistingTimeout();
+	    cancelled = true;
+	  } // `noTrailing` defaults to falsy.
 
-		function wrapper() {
-			for (
-				var _length = arguments.length,
-					arguments_ = new Array(_length),
-					_key = 0;
-				_key < _length;
-				_key++
-			) {
-				arguments_[_key] = arguments[_key];
-			}
 
-			var self = this;
-			var elapsed = Date.now() - lastExec;
+	  if (typeof noTrailing !== 'boolean') {
+	    debounceMode = callback;
+	    callback = noTrailing;
+	    noTrailing = undefined;
+	  }
+	  /*
+	   * The `wrapper` function encapsulates all of the throttling / debouncing
+	   * functionality and when executed will limit the rate at which `callback`
+	   * is executed.
+	   */
 
-			if (cancelled) {
-				return;
-			} // Execute `callback` and update the `lastExec` timestamp.
 
-			function exec() {
-				lastExec = Date.now();
-				callback.apply(self, arguments_);
-			}
-			/*
-			 * If `debounceMode` is true (at begin) this is used to clear the flag
-			 * to allow future `callback` executions.
-			 */
+	  function wrapper() {
+	    for (var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++) {
+	      arguments_[_key] = arguments[_key];
+	    }
 
-			function clear() {
-				timeoutID = undefined;
-			}
+	    var self = this;
+	    var elapsed = Date.now() - lastExec;
 
-			if (debounceMode && !timeoutID) {
-				/*
-				 * Since `wrapper` is being called for the first time and
-				 * `debounceMode` is true (at begin), execute `callback`.
-				 */
-				exec();
-			}
+	    if (cancelled) {
+	      return;
+	    } // Execute `callback` and update the `lastExec` timestamp.
 
-			clearExistingTimeout();
 
-			if (debounceMode === undefined && elapsed > delay) {
-				/*
-				 * In throttle mode, if `delay` time has been exceeded, execute
-				 * `callback`.
-				 */
-				exec();
-			} else if (noTrailing !== true) {
-				/*
-				 * In trailing throttle mode, since `delay` time has not been
-				 * exceeded, schedule `callback` to execute `delay` ms after most
-				 * recent execution.
-				 *
-				 * If `debounceMode` is true (at begin), schedule `clear` to execute
-				 * after `delay` ms.
-				 *
-				 * If `debounceMode` is false (at end), schedule `callback` to
-				 * execute after `delay` ms.
-				 */
-				timeoutID = setTimeout(
-					debounceMode ? clear : exec,
-					debounceMode === undefined ? delay - elapsed : delay
-				);
-			}
-		}
+	    function exec() {
+	      lastExec = Date.now();
+	      callback.apply(self, arguments_);
+	    }
+	    /*
+	     * If `debounceMode` is true (at begin) this is used to clear the flag
+	     * to allow future `callback` executions.
+	     */
 
-		wrapper.cancel = cancel; // Return the wrapper function.
 
-		return wrapper;
+	    function clear() {
+	      timeoutID = undefined;
+	    }
+
+	    if (debounceMode && !timeoutID) {
+	      /*
+	       * Since `wrapper` is being called for the first time and
+	       * `debounceMode` is true (at begin), execute `callback`.
+	       */
+	      exec();
+	    }
+
+	    clearExistingTimeout();
+
+	    if (debounceMode === undefined && elapsed > delay) {
+	      /*
+	       * In throttle mode, if `delay` time has been exceeded, execute
+	       * `callback`.
+	       */
+	      exec();
+	    } else if (noTrailing !== true) {
+	      /*
+	       * In trailing throttle mode, since `delay` time has not been
+	       * exceeded, schedule `callback` to execute `delay` ms after most
+	       * recent execution.
+	       *
+	       * If `debounceMode` is true (at begin), schedule `clear` to execute
+	       * after `delay` ms.
+	       *
+	       * If `debounceMode` is false (at end), schedule `callback` to
+	       * execute after `delay` ms.
+	       */
+	      timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+	    }
+	  }
+
+	  wrapper.cancel = cancel; // Return the wrapper function.
+
+	  return wrapper;
 	}
 
 	/* eslint-disable no-undefined */
@@ -152,15 +138,14 @@
 	 * @returns {Function} A new, debounced function.
 	 */
 
-	function debounce(delay, atBegin, callback) {
-		return callback === undefined
-			? throttle(delay, atBegin, false)
-			: throttle(delay, callback, atBegin !== false);
+	function debounce (delay, atBegin, callback) {
+	  return callback === undefined ? throttle(delay, atBegin, false) : throttle(delay, callback, atBegin !== false);
 	}
 
 	exports.debounce = debounce;
 	exports.throttle = throttle;
 
 	Object.defineProperty(exports, '__esModule', { value: true });
-});
-// # sourceMappingURL=index.umd.js.map
+
+})));
+//# sourceMappingURL=index.umd.js.map
