@@ -19,7 +19,7 @@ module.exports = {
 			file: 'index.umd.js',
 			format: 'umd',
 			sourcemap: true,
-			name: 'throttle-debounce.umd.js'
+			name: 'throttleDebounce'
 		}
 	],
 	plugins: [
