@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [2.3.0][] - 2020-08-12
+
 ### Added
 
 -   Support for UMD package
@@ -19,3 +21,5 @@
 
 [unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.2.1...HEAD
 [2.2.1]: https://github.com/niksy/throttle-debounce/tree/v2.2.1
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/niksy/throttle-debounce/tree/v2.3.0
