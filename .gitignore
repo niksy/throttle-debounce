@@ -6,6 +6,7 @@ npm-debug.log
 local.log
 index.cjs.js
 index.esm.js
+index.umd.js
 index.cjs.js.map
 index.esm.js.map
-*.swp
+index.umd.js.map
