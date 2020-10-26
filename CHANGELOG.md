@@ -2,6 +2,11 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   Avoid having bundles like Webpack load the UMD module
+    ([#42](https://github.com/niksy/throttle-debounce/pull/42))
+
 ## [2.3.0][] - 2020-08-12
 
 ### Added
