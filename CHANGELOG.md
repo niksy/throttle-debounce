@@ -6,6 +6,12 @@
 
 -   Avoid having bundles like Webpack load the UMD module
     ([#42](https://github.com/niksy/throttle-debounce/pull/42))
+-   Upgrade package
+
+### Removed
+
+-   **Breaking**: Drop Node 8 support, package is no longer tested against it,
+    but it should still work since there are no code changes
 
 ## [2.3.0][] - 2020-08-12
 
@@ -24,7 +30,6 @@
     ([#36](https://github.com/niksy/throttle-debounce/pull/36))
 -   Use ES2015+ features
 
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.2.1...HEAD
 [2.2.1]: https://github.com/niksy/throttle-debounce/tree/v2.2.1
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.3.0...HEAD
 [2.3.0]: https://github.com/niksy/throttle-debounce/tree/v2.3.0
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.3.0...HEAD

@@ -1,319 +1,402 @@
-/* jshint ignore:start */
-/* eslint-disable */
+/* eslint-disable mocha/no-identical-title */
 
 /* Original QUnit test: https://github.com/cowboy/jquery-throttle-debounce/blob/master/unit/unit.js */
 
-import { module, test, expect, ok, equal as equals, start, stop } from 'qunitjs';
+import {
+	module,
+	test,
+	expect,
+	ok,
+	equal as equals,
+	start,
+	stop
+} from 'qunitjs';
 import throttle from '../throttle';
 import debounce from '../debounce';
 
-QUnit.config.autostart = false;
+window.QUnit.config.autostart = false;
 
-var pause = 500,
-	delay = 100;
+let pause = 500;
+let delay = 100;
 
-function exec_many_times( each, complete ) {
-	var i = 0,
-		repeated,
-		id;
+function execManyTimes(each, complete) {
+	let index = 0;
+	let repeated, id;
 
-	function start(){
-		id = setInterval(function(){
+	function start() {
+		id = setInterval(function () {
 			each();
-			if ( ++i === 50 ) {
-				clearInterval( id );
-				complete( repeated ? null : function(){
-					i = 0;
-					repeated = true;
-					setTimeout( start, pause );
-				});
+			if (++index === 50) {
+				clearInterval(id);
+				complete(
+					repeated
+						? null
+						: function () {
+								index = 0;
+								repeated = true;
+								setTimeout(start, pause);
+						  }
+				);
 			}
 		}, 20);
 	}
 
-	setTimeout( start, pause );
-};
+	setTimeout(start, pause);
+}
 
-module( 'throttle' );
+module('throttle');
 
-test( 'delay, callback', function() {
-	expect( 7 );
+test('delay, callback', function () {
+	expect(7);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function( now ){
-			arr.push( now - this )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, function_);
+
+	equals(
+		throttled.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			let now = Number(new Date());
+			startTime = startTime || now;
+			index++;
+			throttled.call(startTime, now);
 		},
-		throttled = throttle( delay, fn );
+		function (callback) {
+			let length_ = array.length;
 
-	equals( throttled.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				// Console.log( arr, arr.length, len, i );
+				ok(
+					array.length < index,
+					'callback should be executed less # of times than throttled-callback'
+				);
+				equals(array[0], 0, 'callback should be executed immediately');
+				equals(
+					array.length - length_,
+					1,
+					'callback should be executed one more time after finish'
+				);
 
-	exec_many_times( function(){
-		var now = +new Date();
-		start_time = start_time || now;
-		i++;
-		throttled.call( start_time, now );
-	}, function( callback ){
-		var len = arr.length;
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			//console.log( arr, arr.length, len, i );
-			ok( arr.length < i, 'callback should be executed less # of times than throttled-callback' );
-			equals( arr[0], 0, 'callback should be executed immediately' );
-			equals( arr.length - len, 1, 'callback should be executed one more time after finish' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });
 
-test( 'delay, false, callback', function() {
-	expect( 7 );
+test('delay, false, callback', function () {
+	expect(7);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function( now ){
-			arr.push( now - this )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, false, function_);
+
+	equals(
+		throttled.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			let now = Number(new Date());
+			startTime = startTime || now;
+			index++;
+			throttled.call(startTime, now);
 		},
-		throttled = throttle( delay, false, fn );
+		function (callback) {
+			let length_ = array.length;
 
-	equals( throttled.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				// Console.log( arr, arr.length, len, i );
+				ok(
+					array.length < index,
+					'callback should be executed less # of times than throttled-callback'
+				);
+				equals(array[0], 0, 'callback should be executed immediately');
+				equals(
+					array.length - length_,
+					1,
+					'callback should be executed one more time after finish'
+				);
 
-	exec_many_times( function(){
-		var now = +new Date();
-		start_time = start_time || now;
-		i++;
-		throttled.call( start_time, now );
-	}, function( callback ){
-		var len = arr.length;
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			//console.log( arr, arr.length, len, i );
-			ok( arr.length < i, 'callback should be executed less # of times than throttled-callback' );
-			equals( arr[0], 0, 'callback should be executed immediately' );
-			equals( arr.length - len, 1, 'callback should be executed one more time after finish' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });
 
-test( 'delay, true, callback', function() {
-	expect( 7 );
+test('delay, true, callback', function () {
+	expect(7);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function( now ){
-			arr.push( now - this )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, true, function_);
+
+	equals(
+		throttled.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			let now = Number(new Date());
+			startTime = startTime || now;
+			index++;
+			throttled.call(startTime, now);
 		},
-		throttled = throttle( delay, true, fn );
+		function (callback) {
+			let length_ = array.length;
 
-	equals( throttled.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				// Console.log( arr, arr.length, len, i );
+				ok(
+					array.length < index,
+					'callback should be executed less # of times than throttled-callback'
+				);
+				equals(array[0], 0, 'callback should be executed immediately');
+				equals(
+					array.length - length_,
+					0,
+					'callback should NOT be executed one more time after finish'
+				);
 
-	exec_many_times( function(){
-		var now = +new Date();
-		start_time = start_time || now;
-		i++;
-		throttled.call( start_time, now );
-	}, function( callback ){
-		var len = arr.length;
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			//console.log( arr, arr.length, len, i );
-			ok( arr.length < i, 'callback should be executed less # of times than throttled-callback' );
-			equals( arr[0], 0, 'callback should be executed immediately' );
-			equals( arr.length - len, 0, 'callback should NOT be executed one more time after finish' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });
 
-test('cancel', function() {
-	expect( 2 );
+test('cancel', function () {
+	expect(2);
 	stop();
 
-	var callCount = 0,
-		throttled = throttle( delay * 100, false, function() {
-			callCount++;
-		} );
+	let callCount = 0;
+	let throttled = throttle(delay * 100, false, function () {
+		callCount++;
+	});
 
-		equals(1, 1);
+	equals(1, 1);
 
 	throttled.cancel();
 	throttled.call();
 
-	setTimeout(function() {
+	setTimeout(function () {
 		equals(callCount, 0, 'callback should not be called');
 		start();
 	}, delay * 2);
 });
 
+module('debounce');
 
-module( 'debounce' );
-
-test( 'delay, callback', function() {
-	expect( 5 );
+test('delay, callback', function () {
+	expect(5);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function(){
-			arr.push( +new Date() )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function () {
+		array.push(Number(new Date()));
+	};
+	let debounced = debounce(delay, function_);
+
+	equals(
+		debounced.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			startTime = startTime || Number(new Date());
+			index++;
+			debounced.call();
 		},
-		debounced = debounce( delay, fn );
+		function (callback) {
+			let length_ = array.length;
+			let doneTime = Number(new Date());
 
-	equals( debounced.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				// Console.log( arr[0] - doneTime );
+				equals(array.length, 1, 'callback was executed once');
+				ok(
+					array[0] >= doneTime,
+					'callback should be executed after the finish'
+				);
 
-	exec_many_times( function(){
-		start_time = start_time || +new Date();
-		i++;
-		debounced.call();
-	}, function( callback ){
-		var len = arr.length,
-			done_time = +new Date();
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			//console.log( arr[0] - done_time );
-			equals( arr.length, 1, 'callback was executed once' );
-			ok( arr[0] >= done_time, 'callback should be executed after the finish' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });
 
-test( 'delay, false, callback', function() {
-	expect( 5 );
+test('delay, false, callback', function () {
+	expect(5);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function(){
-			arr.push( +new Date() )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function () {
+		array.push(Number(new Date()));
+	};
+	let debounced = debounce(delay, false, function_);
+
+	equals(
+		debounced.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			startTime = startTime || Number(new Date());
+			index++;
+			debounced.call();
 		},
-		debounced = debounce( delay, false, fn );
+		function (callback) {
+			let length_ = array.length;
+			let doneTime = Number(new Date());
 
-	equals( debounced.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				// Console.log( arr[0] - doneTime );
+				equals(array.length, 1, 'callback was executed once');
+				ok(
+					array[0] >= doneTime,
+					'callback should be executed after the finish'
+				);
 
-	exec_many_times( function(){
-		start_time = start_time || +new Date();
-		i++;
-		debounced.call();
-	}, function( callback ){
-		var len = arr.length,
-			done_time = +new Date();
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			//console.log( arr[0] - done_time );
-			equals( arr.length, 1, 'callback was executed once' );
-			ok( arr[0] >= done_time, 'callback should be executed after the finish' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });
 
-test( 'delay, true, callback', function() {
-	expect( 5 );
+test('delay, true, callback', function () {
+	expect(5);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function(){
-			arr.push( +new Date() )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function () {
+		array.push(Number(new Date()));
+	};
+	let debounced = debounce(delay, true, function_);
+
+	equals(
+		debounced.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			startTime = startTime || Number(new Date());
+			index++;
+			debounced.call();
 		},
-		debounced = debounce( delay, true, fn );
+		function (callback) {
+			let length_ = array.length;
 
-	equals( debounced.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				// Console.log( arr[0] - startTime );
+				equals(array.length, 1, 'callback was executed once');
+				ok(
+					array[0] - startTime <= 5,
+					'callback should be executed at the start'
+				);
 
-	exec_many_times( function(){
-		start_time = start_time || +new Date();
-		i++;
-		debounced.call();
-	}, function( callback ){
-		var len = arr.length;
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			//console.log( arr[0] - start_time );
-			equals( arr.length, 1, 'callback was executed once' );
-			ok( arr[0] - start_time <= 5, 'callback should be executed at the start' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });
 
-test('cancel', function() {
-	expect( 3 );
+test('cancel', function () {
+	expect(3);
 	stop();
 
-	var start_time,
-		i = 0,
-		arr = [],
-		fn = function(){
-			arr.push( +new Date() )
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function () {
+		array.push(Number(new Date()));
+	};
+	let debounced = debounce(delay, true, function_);
+
+	equals(
+		debounced.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	setTimeout(function () {
+		debounced.cancel();
+	}, delay / 2);
+	execManyTimes(
+		function () {
+			startTime = startTime || Number(new Date());
+			index++;
+			debounced.call();
 		},
-		debounced = debounce( delay, true, fn );
+		function (callback) {
+			let length_ = array.length;
 
-	equals( debounced.guid, fn.guid, 'throttled-callback and callback should have the same .guid' );
+			setTimeout(function () {
+				equals(array.length, 0, 'callback should not be executed');
 
-	setTimeout(function() {debounced.cancel();}, delay / 2)
-	exec_many_times( function(){
-		start_time = start_time || +new Date();
-		i++;
-		debounced.call();
-	}, function( callback ){
-		var len = arr.length;
+				startTime = null;
+				array = [];
+				index = 0;
 
-		setTimeout(function(){
-			equals( arr.length, 0, 'callback should not be executed' );
-
-			start_time = null;
-			arr = [];
-			i = 0;
-
-			callback ? callback() : start();
-
-		}, delay * 2);
-	})
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
 });

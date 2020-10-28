@@ -3,10 +3,8 @@ node_modules/
 package-lock.json
 yarn.lock
 npm-debug.log
+browserstack.err
 local.log
-index.cjs.js
-index.esm.js
-index.umd.js
-index.cjs.js.map
-index.esm.js.map
-index.umd.js.map
+cjs/
+esm/
+umd/

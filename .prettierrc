@@ -15,5 +15,6 @@
 	"proseWrap": "always",
 	"htmlWhitespaceSensitivity": "css",
 	"vueIndentScriptAndStyle": false,
-	"endOfLine": "lf"
+	"endOfLine": "lf",
+	"embeddedLanguageFormatting": "auto"
 }

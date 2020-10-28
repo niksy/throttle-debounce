@@ -1,8 +1,7 @@
 {
-	"*.js": ["eslint --fix", "git add"],
-	"*.md": ["prettier --ignore-path .gitignore --write", "git add"],
+	"*.js": ["eslint --fix"],
+	"*.md": ["prettier --ignore-path .gitignore --write"],
 	".!(npm|browserslist)*rc": [
-		"prettier --ignore-path .gitignore --parser json --write",
-		"git add"
+		"prettier --ignore-path .gitignore --parser json --write"
 	]
 }
