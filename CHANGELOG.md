@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [3.0.0][] - 2020-10-28
+
 ### Changed
 
 -   Avoid having bundles like Webpack load the UMD module
@@ -33,3 +35,5 @@
 [2.2.1]: https://github.com/niksy/throttle-debounce/tree/v2.2.1
 [2.3.0]: https://github.com/niksy/throttle-debounce/tree/v2.3.0
 [unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.3.0...HEAD
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/niksy/throttle-debounce/tree/v3.0.0
