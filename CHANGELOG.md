@@ -2,6 +2,11 @@
 
 ## [Unreleased][]
 
+### Fixed
+
+-   Accessing `package.json` being restricted since it’s no longer exported
+    ([#43](https://github.com/niksy/throttle-debounce/pull/43))
+
 ## [3.0.0][] - 2020-10-28
 
 ### Changed
