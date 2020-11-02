@@ -12,7 +12,8 @@
     ".": {
       "import": "./esm/index.js",
       "require": "./cjs/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "main": "cjs/index.js",
   "jsdelivr": "umd/index.js",
