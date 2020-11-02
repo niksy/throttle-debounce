@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [3.0.1][] - 2020-11-02
+
 ### Fixed
 
 -   Accessing `package.json` being restricted since it’s no longer exported
@@ -42,3 +44,5 @@
 [unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.3.0...HEAD
 [unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.0...HEAD
 [3.0.0]: https://github.com/niksy/throttle-debounce/tree/v3.0.0
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/niksy/throttle-debounce/tree/v3.0.1
