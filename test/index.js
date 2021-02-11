@@ -400,3 +400,30 @@ test('cancel', function () {
 		}
 	);
 });
+
+test('cancel (running only)', function () {
+	expect(2);
+	stop();
+
+	let array = [];
+	let function_ = function () {
+		array.push(Number(new Date()));
+	};
+	let debounced = debounce(delay, function_);
+
+	debounced.call();
+
+	setTimeout(function () {
+		debounced.cancel(true);
+	}, delay / 2);
+
+	setTimeout(function () {
+		equals(array.length, 0, 'callback should not be executed');
+		debounced.call();
+	}, delay);
+
+	setTimeout(function () {
+		equals(array.length, 1, 'callback should be executed once');
+		start();
+	}, delay * 3);
+});

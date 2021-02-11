@@ -36,9 +36,9 @@ export default function (delay, noTrailing, callback, debounceMode) {
 	}
 
 	// Function to cancel next exec
-	function cancel() {
+	function cancel(upcomingOnly) {
 		clearExistingTimeout();
-		cancelled = true;
+		cancelled = !upcomingOnly;
 	}
 
 	// `noTrailing` defaults to falsy.
