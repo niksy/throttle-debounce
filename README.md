@@ -104,6 +104,26 @@ debounceFunc.cancel();
 
 The logic that is being throttled or debounced will no longer be called.
 
+### Checking for pending callback
+
+Debounce and throttle can both be inspected to see if an invocation of `callback` is pending.
+
+```js
+const throttleFunc = throttle(300, () => {
+	// Throttled function
+});
+
+throttleFunc.isPending();
+
+const debounceFunc = debounce(300, () => {
+	// Debounced function
+});
+
+debounceFunc.isPending();
+```
+
+If an invocation is pending `true` will be returned, otherwise `false`. Please note that is `debouce(delay, true, callback)` mode, a callback invocation is never pending.
+
 ## API
 
 ### throttle(delay, noTrailing, callback, debounceMode)

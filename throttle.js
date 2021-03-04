@@ -24,6 +24,7 @@ export default function (delay, noTrailing, callback, debounceMode) {
 	 */
 	let timeoutID;
 	let cancelled = false;
+	let pending = false;
 
 	// Keep track of the last time `callback` was executed.
 	let lastExec = 0;
@@ -39,6 +40,11 @@ export default function (delay, noTrailing, callback, debounceMode) {
 	function cancel() {
 		clearExistingTimeout();
 		cancelled = true;
+	}
+
+	// function to check to see if there is a pending invocation
+	function isPending() {
+		return pending;
 	}
 
 	// `noTrailing` defaults to falsy.
@@ -63,6 +69,7 @@ export default function (delay, noTrailing, callback, debounceMode) {
 
 		// Execute `callback` and update the `lastExec` timestamp.
 		function exec() {
+			pending = false;
 			lastExec = Date.now();
 			callback.apply(self, arguments_);
 		}
@@ -107,10 +114,15 @@ export default function (delay, noTrailing, callback, debounceMode) {
 				debounceMode ? clear : exec,
 				debounceMode === undefined ? delay - elapsed : delay
 			);
+			if (!debounceMode) {
+				pending = true;
+			}
 		}
 	}
 
 	wrapper.cancel = cancel;
+
+	wrapper.isPending = isPending;
 
 	// Return the wrapper function.
 	return wrapper;
