@@ -219,6 +219,100 @@ test('cancel', function () {
 	}, delay * 2);
 });
 
+test('isPending delay callback', function () {
+	expect(4);
+	stop();
+
+	let throttled = throttle(delay * 10, function () {});
+
+	ok(!throttled.isPending(), 'callback should not be pending');
+
+	throttled.call();
+	
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'finished initial call, callback should not be pending');
+	}, delay);
+
+
+	setTimeout(function () {
+		throttled.call();
+	}, delay * 2);
+
+	setTimeout(function () {
+		ok(throttled.isPending(), 'callback should be pending');
+	}, delay * 5);
+
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'finished call, callback should not be pending');
+		start();
+	}, delay * 11);
+
+});
+
+test('isPending delay false callback', function () {
+	expect(4);
+	stop();
+
+	let throttled = throttle(delay * 10, false, function () {});
+
+	ok(!throttled.isPending(), 'callback should not be pending');
+
+	throttled.call();
+	
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'finished initial call, callback should not be pending');
+	}, delay);
+
+
+	setTimeout(function () {
+		throttled.call();
+	}, delay * 2);
+
+	setTimeout(function () {
+		ok(throttled.isPending(), 'callback should be pending');
+	}, delay * 5);
+
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'finished call, callback should not be pending');
+		start();
+	}, delay * 11);
+
+});
+
+test('isPending delay true callback', function () {
+	expect(4);
+	stop();
+
+	let throttled = throttle(delay * 10, true, function () {});
+
+	ok(!throttled.isPending(), 'callback should not be pending');
+
+	throttled.call();
+	
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'finished initial call, callback should not be pending');
+	}, delay);
+
+
+	setTimeout(function () {
+		throttled.call();
+	}, delay * 2);
+
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'callback should not be pending');
+	}, delay * 5);
+
+	setTimeout(function () {
+		throttled.call();
+	}, delay * 15);
+
+	setTimeout(function () {
+		ok(!throttled.isPending(), 'finished call, callback should not be pending');
+		start();
+	}, delay * 16);
+
+});
+
 module('debounce');
 
 test('delay, callback', function () {
@@ -399,4 +493,59 @@ test('cancel', function () {
 			}, delay * 2);
 		}
 	);
+});
+
+test('isPending delay callback', function () {
+	expect(6);
+	stop();
+
+	let calledCount = 0;
+	let debounced = debounce(delay * 10, function () {
+		calledCount += 1;
+	});
+
+	ok(!debounced.isPending(), 'no calls yet, callback should not be pending');
+
+	debounced.call();
+
+	setTimeout(function () {
+		ok(debounced.isPending(), 'callback should be pending');
+	}, delay * 5);
+
+	setTimeout(function () {
+		debounced.call()
+	}, delay * 7);
+
+	setTimeout(function () {
+		ok(calledCount === 0, 'should not have called yet');
+		ok(debounced.isPending(), 'finished call, but trying again, callback should be pending');
+	}, delay * 15);
+
+	setTimeout(function () {
+		ok(calledCount === 1, 'should have called yet');
+		ok(!debounced.isPending(), 'finished call, callback should not be pending');
+		start();
+	}, delay * 20);
+});
+
+test('isPending delay true callback', function () {
+	expect(3);
+	stop();
+
+	let debounced = debounce(delay * 10, true, function () {});
+
+	ok(!debounced.isPending(), 'no calls yet, callback should not be pending');
+
+	debounced.call();
+
+	setTimeout(function () {
+		ok(!debounced.isPending(), 'call already happened, should not be pending');
+	}, delay * 5);
+
+	setTimeout(function () {
+		ok(!debounced.isPending(), 'ready for the next call, should not be pending');
+		start();
+	}, delay * 15);
+
+	
 });
