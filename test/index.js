@@ -46,7 +46,7 @@ function execManyTimes(each, complete) {
 
 module('throttle');
 
-test('delay, callback', function () {
+test('no option', function () {
 	expect(7);
 	stop();
 
@@ -97,7 +97,7 @@ test('delay, callback', function () {
 	);
 });
 
-test('delay, false, callback', function () {
+test('{ noTrailing: false }', function () {
 	expect(7);
 	stop();
 
@@ -107,7 +107,7 @@ test('delay, false, callback', function () {
 	let function_ = function (now) {
 		array.push(now - this);
 	};
-	let throttled = throttle(delay, false, function_);
+	let throttled = throttle(delay, function_, { noTrailing: false });
 
 	equals(
 		throttled.guid,
@@ -148,7 +148,7 @@ test('delay, false, callback', function () {
 	);
 });
 
-test('delay, true, callback', function () {
+test('{ noTrailing: true }', function () {
 	expect(7);
 	stop();
 
@@ -158,7 +158,7 @@ test('delay, true, callback', function () {
 	let function_ = function (now) {
 		array.push(now - this);
 	};
-	let throttled = throttle(delay, true, function_);
+	let throttled = throttle(delay, function_, { noTrailing: true });
 
 	equals(
 		throttled.guid,
@@ -204,9 +204,13 @@ test('cancel', function () {
 	stop();
 
 	let callCount = 0;
-	let throttled = throttle(delay * 100, false, function () {
-		callCount++;
-	});
+	let throttled = throttle(
+		delay * 100,
+		function () {
+			callCount++;
+		},
+		{ noTrailing: false }
+	);
 
 	equals(1, 1);
 
