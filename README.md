@@ -23,9 +23,13 @@ npm install throttle-debounce --save
 ```js
 import { throttle } from 'throttle-debounce';
 
-const throttleFunc = throttle(1000, false, (num) => {
-	console.log('num:', num);
-});
+const throttleFunc = throttle(
+	1000,
+	(num) => {
+		console.log('num:', num);
+	},
+	{ noTrailing: false }
+);
 
 // Can also be used like this, because noTrailing is false by default
 const throttleFunc = throttle(1000, (num) => {
@@ -106,7 +110,7 @@ The logic that is being throttled or debounced will no longer be called.
 
 ## API
 
-### throttle(delay, noTrailing, callback, debounceMode)
+### throttle(delay, callback, { noTrailing, debounceMode })
 
 Returns: `Function`
 
@@ -120,6 +124,14 @@ Type: `Number`
 A zero-or-greater delay in milliseconds. For event callbacks, values around 100
 or 250 (or even higher) are most useful.
 
+#### callback
+
+Type: `Function`
+
+A function to be executed after delay milliseconds. The `this` context and all
+arguments are passed through, as-is, to `callback` when the throttled-function
+is executed.
+
 #### noTrailing
 
 Type: `Boolean`
@@ -129,14 +141,6 @@ every `delay` milliseconds while the throttled-function is being called. If
 noTrailing is false or unspecified, callback will be executed one final time
 after the last throttled-function call. (After the throttled-function has not
 been called for `delay` milliseconds, the internal counter is reset)
-
-#### callback
-
-Type: `Function`
-
-A function to be executed after delay milliseconds. The `this` context and all
-arguments are passed through, as-is, to `callback` when the throttled-function
-is executed.
 
 #### debounceMode
 
