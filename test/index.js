@@ -199,6 +199,153 @@ test('{ noTrailing: true }', function () {
 	);
 });
 
+test('{ noLeading: false }', function () {
+	expect(7);
+	stop();
+
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, function_, { noLeading: false });
+
+	equals(
+		throttled.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			let now = Number(new Date());
+			startTime = startTime || now;
+			index++;
+			throttled.call(startTime, now);
+		},
+		function (callback) {
+			let length_ = array.length;
+
+			setTimeout(function () {
+				// Console.log( arr, arr.length, len, i );
+				ok(
+					array.length < index,
+					'callback should be executed less # of times than throttled-callback'
+				);
+				equals(array[0], 0, 'callback should be executed immediately');
+				equals(
+					array.length - length_,
+					1,
+					'callback should be executed one more time after finish'
+				);
+
+				startTime = null;
+				array = [];
+				index = 0;
+
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
+});
+
+test('{ noLeading: true }', function () {
+	expect(7);
+	stop();
+
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, function_, {
+		noLeading: true,
+		noTrailing: false
+	});
+
+	equals(
+		throttled.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			let now = Number(new Date());
+			startTime = startTime || now;
+			index++;
+			throttled.call(startTime, now);
+		},
+		function (callback) {
+			let length_ = array.length;
+
+			setTimeout(function () {
+				// Console.log( arr, arr.length, len, i );
+				ok(
+					array.length < index,
+					'callback should be executed less # of times than throttled-callback'
+				);
+				ok(array[0] > 0, 'callback should NOT be executed immediately');
+				equals(
+					array.length - length_,
+					1,
+					'callback should NOT be executed one more time after finish'
+				);
+
+				startTime = null;
+				array = [];
+				index = 0;
+
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
+});
+
+test('{ noLeading: true, noTrailing: true }', function () {
+	expect(3);
+	stop();
+
+	let startTime;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, function_, {
+		noLeading: true,
+		noTrailing: true
+	});
+
+	equals(
+		throttled.guid,
+		function_.guid,
+		'throttled-callback and callback should have the same .guid'
+	);
+
+	execManyTimes(
+		function () {
+			let now = Number(new Date());
+			startTime = startTime || now;
+			throttled.call(startTime, now);
+		},
+		function (callback) {
+			let length_ = array.length;
+
+			setTimeout(function () {
+				// Console.log( arr, arr.length, len, i );
+				equals(array.length, 0, 'callback should NOT be executed');
+
+				startTime = null;
+				array = [];
+
+				callback ? callback() : start();
+			}, delay * 2);
+		}
+	);
+});
+
 test('cancel', function () {
 	expect(2);
 	stop();
