@@ -28,10 +28,10 @@ const throttleFunc = throttle(
 	(num) => {
 		console.log('num:', num);
 	},
-	{ noLeading: false, noTrailing: false }
+	{ noTrailing: false }
 );
 
-// Can also be used like this, because noLeading and noTrailing are false by default
+// Can also be used like this, because noTrailing is false by default
 const throttleFunc = throttle(1000, (num) => {
 	console.log('num:', num);
 });
@@ -110,7 +110,7 @@ The logic that is being throttled or debounced will no longer be called.
 
 ## API
 
-### throttle(delay, callback, { noLeading, noTrailing, debounceMode })
+### throttle(delay, callback, { noTrailing, debounceMode })
 
 Returns: `Function`
 
@@ -141,15 +141,6 @@ every `delay` milliseconds while the throttled-function is being called. If
 noTrailing is false or unspecified, callback will be executed one final time
 after the last throttled-function call. (After the throttled-function has not
 been called for `delay` milliseconds, the internal counter is reset)
-
-#### noLeading
-
-Type: `Boolean`
-
-Optional, defaults to false. If noLeading is false, the first throttled-function
-call will execute callback immediately. If noLeading is true, the first the
-callback execution will be skipped. It should be noted that callback will never
-executed if both noLeading = true and noTrailing = true.
 
 #### debounceMode
 
