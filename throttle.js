@@ -22,11 +22,7 @@
  * @returns {Function}  A new, throttled, function.
  */
 export default function (delay, callback, options) {
-	const {
-		noTrailing = false,
-		noLeading = false,
-		debounceMode = undefined
-	} = options || {};
+	const { noTrailing = false, debounceMode = undefined } = options || {};
 	/*
 	 * After wrapper has stopped being called, this timeout ensures that
 	 * `callback` is executed at the proper times in `throttle` and `end`
@@ -35,8 +31,8 @@ export default function (delay, callback, options) {
 	let timeoutID;
 	let cancelled = false;
 
-	// `callback` execution will be prevented until `preventUntil`
-	let preventUntil = 0;
+	// Keep track of the last time `callback` was executed.
+	let lastExec = 0;
 
 	// Function to clear existing timeout
 	function clearExistingTimeout() {
@@ -58,14 +54,15 @@ export default function (delay, callback, options) {
 	 */
 	function wrapper(...arguments_) {
 		let self = this;
+		let elapsed = Date.now() - lastExec;
 
 		if (cancelled) {
 			return;
 		}
 
-		// Execute `callback` and update the `preventUntil` timestamp.
+		// Execute `callback` and update the `lastExec` timestamp.
 		function exec() {
-			preventUntil = Date.now() + delay;
+			lastExec = Date.now();
 			callback.apply(self, arguments_);
 		}
 
@@ -77,32 +74,22 @@ export default function (delay, callback, options) {
 			timeoutID = undefined;
 		}
 
-		if (!noLeading && debounceMode && !timeoutID) {
+		if (debounceMode && !timeoutID) {
 			/*
 			 * Since `wrapper` is being called for the first time and
-			 * `debounceMode` is true (at begin), execute `callback`
-			 * and noLeading != true.
+			 * `debounceMode` is true (at begin), execute `callback`.
 			 */
 			exec();
 		}
 
 		clearExistingTimeout();
 
-		let now = Date.now();
-		if (debounceMode === undefined && now > preventUntil) {
-			if (noLeading) {
-				/*
-				 * In throttle mode with noLeading, if `delay` time has
-				 * been exceeded, update `preventUntil`.
-				 */
-				preventUntil = now + delay;
-			} else {
-				/*
-				 * In throttle mode without noLeading, if `delay` time has
-				 * been exceeded, execute `callback`.
-				 */
-				exec();
-			}
+		if (debounceMode === undefined && elapsed > delay) {
+			/*
+			 * In throttle mode, if `delay` time has been exceeded, execute
+			 * `callback`.
+			 */
+			exec();
 		} else if (noTrailing !== true) {
 			/*
 			 * In trailing throttle mode, since `delay` time has not been
@@ -117,7 +104,7 @@ export default function (delay, callback, options) {
 			 */
 			timeoutID = setTimeout(
 				debounceMode ? clear : exec,
-				debounceMode === undefined ? preventUntil - now : delay
+				debounceMode === undefined ? delay - elapsed : delay
 			);
 		}
 	}
