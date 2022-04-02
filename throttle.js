@@ -22,7 +22,11 @@
  * @returns {Function}  A new, throttled, function.
  */
 export default function (delay, callback, options) {
-	const { noTrailing = false, debounceMode = undefined } = options || {};
+	const {
+		noTrailing = false,
+		noLeading = false,
+		debounceMode = undefined
+	} = options || {};
 	/*
 	 * After wrapper has stopped being called, this timeout ensures that
 	 * `callback` is executed at the proper times in `throttle` and `end`
@@ -74,10 +78,11 @@ export default function (delay, callback, options) {
 			timeoutID = undefined;
 		}
 
-		if (debounceMode && !timeoutID) {
+		if (!noLeading && debounceMode && !timeoutID) {
 			/*
 			 * Since `wrapper` is being called for the first time and
-			 * `debounceMode` is true (at begin), execute `callback`.
+			 * `debounceMode` is true (at begin), execute `callback`
+			 * and noLeading != true.
 			 */
 			exec();
 		}
@@ -85,11 +90,19 @@ export default function (delay, callback, options) {
 		clearExistingTimeout();
 
 		if (debounceMode === undefined && elapsed > delay) {
-			/*
-			 * In throttle mode, if `delay` time has been exceeded, execute
-			 * `callback`.
-			 */
-			exec();
+			if (noLeading) {
+				/*
+				 * In throttle mode with noLeading, if `delay` time has
+				 * been exceeded, update `preventUntil`.
+				 */
+				lastExec = Date.now();
+			} else {
+				/*
+				 * In throttle mode without noLeading, if `delay` time has been exceeded, execute
+				 * `callback`.
+				 */
+				exec();
+			}
 		} else if (noTrailing !== true) {
 			/*
 			 * In trailing throttle mode, since `delay` time has not been
