@@ -18,6 +18,11 @@ window.QUnit.config.autostart = false;
 
 let pause = 500;
 let delay = 100;
+let epsilon = 10; // Use to allow small error.
+
+function nearlyEqual(actual, expected) {
+	return expected - epsilon <= actual && actual <= expected + epsilon;
+}
 
 function execManyTimes(each, complete) {
 	let index = 0;
@@ -47,7 +52,7 @@ function execManyTimes(each, complete) {
 module('throttle');
 
 test('no option', function () {
-	expect(7);
+	expect(11);
 	stop();
 
 	let startTime;
@@ -86,6 +91,14 @@ test('no option', function () {
 					1,
 					'callback should be executed one more time after finish'
 				);
+				ok(
+					nearlyEqual(array[1] - array[0], delay),
+					'second execution should occur around delay[ms] after first execution'
+				);
+				ok(
+					nearlyEqual(array[2] - array[1], delay),
+					'third execution should occur around delay[ms] after second execution'
+				);
 
 				startTime = null;
 				array = [];
@@ -98,7 +111,7 @@ test('no option', function () {
 });
 
 test('{ noTrailing: false }', function () {
-	expect(7);
+	expect(11);
 	stop();
 
 	let startTime;
@@ -137,6 +150,14 @@ test('{ noTrailing: false }', function () {
 					1,
 					'callback should be executed one more time after finish'
 				);
+				ok(
+					nearlyEqual(array[1] - array[0], delay),
+					'second execution should occur around delay[ms] after first execution'
+				);
+				ok(
+					nearlyEqual(array[2] - array[1], delay),
+					'third execution should occur around delay[ms] after second execution'
+				);
 
 				startTime = null;
 				array = [];
@@ -149,7 +170,7 @@ test('{ noTrailing: false }', function () {
 });
 
 test('{ noTrailing: true }', function () {
-	expect(7);
+	expect(11);
 	stop();
 
 	let startTime;
@@ -187,6 +208,14 @@ test('{ noTrailing: true }', function () {
 					array.length - length_,
 					0,
 					'callback should NOT be executed one more time after finish'
+				);
+				ok(
+					array[1] - array[0] >= delay,
+					'second execution should be prevented until delay[ms] after first execution'
+				);
+				ok(
+					array[2] - array[1] >= delay,
+					'third execution should be prevented until delay[ms] after second execution'
 				);
 
 				startTime = null;
