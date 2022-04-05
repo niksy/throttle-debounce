@@ -93,7 +93,7 @@ export default function (delay, callback, options) {
 			if (noLeading) {
 				/*
 				 * In throttle mode with noLeading, if `delay` time has
-				 * been exceeded, update `preventUntil`.
+				 * been exceeded, update `lastExec`.
 				 */
 				lastExec = Date.now();
 			} else {
