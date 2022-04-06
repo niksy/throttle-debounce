@@ -1,4 +1,3 @@
 {
-	"extends": ["niksy/tests"],
-	"ignorePatterns": ["/**/fixtures"]
+	"extends": ["eslint-config-nitpick/tests"]
 }
