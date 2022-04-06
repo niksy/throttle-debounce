@@ -1,16 +1,14 @@
 {
-	"presets": ["babel-preset-niksy/next", "babel-preset-niksy"],
-	"plugins": ["@babel/plugin-transform-object-assign"],
+	"presets": [["@babel/preset-env", { "modules": false }]],
 	"env": {
 		"test": {
 			"presets": [
 				[
-					"babel-preset-niksy",
+					"@babel/preset-env",
 					{
-						"@babel/preset-env": {
-							"useBuiltIns": "usage",
-							"corejs": 2
-						}
+						"modules": false,
+						"useBuiltIns": "usage",
+						"corejs": 2
 					}
 				]
 			],

@@ -1,14 +1,15 @@
 'use strict';
 
 const path = require('path');
+const stdLibBrowser = require('node-stdlib-browser');
 
 let config;
 
 const isCI =
 	typeof process.env.CI !== 'undefined' && process.env.CI !== 'false';
 const isPR =
-	typeof process.env.TRAVIS_PULL_REQUEST !== 'undefined' &&
-	process.env.TRAVIS_PULL_REQUEST !== 'false';
+	typeof process.env.GITHUB_HEAD_REF !== 'undefined' &&
+	process.env.GITHUB_HEAD_REF !== '';
 const local = !isCI || (isCI && isPR);
 
 const port = 0;
@@ -30,35 +31,37 @@ if (local) {
 		},
 		customLaunchers: {
 			'BS-Chrome': {
-				base: 'BrowserStack',
-				browser: 'Chrome',
-				os: 'Windows',
-				'os_version': '7',
-				project: 'throttle-debounce',
-				build: 'Automated (Karma)',
-				name: 'Chrome'
+				'base': 'BrowserStack',
+				'project': 'throttle-debounce',
+				'build': 'Automated (Karma)',
+				'browser': 'Chrome',
+				'browser_version': '72',
+				'name': 'Chrome',
+				'os': 'Windows',
+				'os_version': '7'
+			},
+			'BS-Edge': {
+				'base': 'BrowserStack',
+				'project': 'throttle-debounce',
+				'build': 'Automated (Karma)',
+				'browser': 'Edge',
+				'browser_version': '15',
+				'name': 'Edge',
+				'os': 'Windows',
+				'os_version': '10'
 			},
 			'BS-Firefox': {
-				base: 'BrowserStack',
-				browser: 'Firefox',
-				os: 'Windows',
-				'os_version': '7',
-				project: 'throttle-debounce',
-				build: 'Automated (Karma)',
-				name: 'Firefox'
-			},
-			'BS-IE9': {
-				base: 'BrowserStack',
-				browser: 'IE',
-				'browser_version': '9',
-				os: 'Windows',
-				'os_version': '7',
-				project: 'throttle-debounce',
-				build: 'Automated (Karma)',
-				name: 'IE9'
+				'base': 'BrowserStack',
+				'project': 'throttle-debounce',
+				'build': 'Automated (Karma)',
+				'browser': 'Firefox',
+				'browser_version': '65',
+				'name': 'Firefox',
+				'os': 'Windows',
+				'os_version': '7'
 			}
 		},
-		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9']
+		browsers: ['BS-Chrome', 'BS-Edge', 'BS-Firefox']
 	};
 }
 
@@ -86,7 +89,12 @@ module.exports = function (baseConfig) {
 		},
 		webpack: {
 			mode: 'none',
-			devtool: 'cheap-module-inline-source-map',
+			devtool: 'inline-source-map',
+			resolve: {
+				fallback: {
+					assert: stdLibBrowser.assert
+				}
+			},
 			module: {
 				rules: [
 					{
