@@ -1,4 +1,4 @@
-import throttle from './throttle';
-import debounce from './debounce';
+import throttle from './throttle.js';
+import debounce from './debounce.js';
 
 export { throttle, debounce };

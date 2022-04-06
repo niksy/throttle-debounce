@@ -11,8 +11,8 @@ import {
 	start,
 	stop
 } from 'qunitjs';
-import throttle from '../throttle';
-import debounce from '../debounce';
+import throttle from '../throttle.js';
+import debounce from '../debounce.js';
 
 window.QUnit.config.autostart = false;
 
@@ -66,7 +66,7 @@ test('no option', function () {
 
 	execManyTimes(
 		function () {
-			let now = Number(new Date());
+			let now = Date.now();
 			startTime = startTime || now;
 			index++;
 			throttled.call(startTime, now);
@@ -117,7 +117,7 @@ test('{ noTrailing: false }', function () {
 
 	execManyTimes(
 		function () {
-			let now = Number(new Date());
+			let now = Date.now();
 			startTime = startTime || now;
 			index++;
 			throttled.call(startTime, now);
@@ -168,7 +168,7 @@ test('{ noTrailing: true }', function () {
 
 	execManyTimes(
 		function () {
-			let now = Number(new Date());
+			let now = Date.now();
 			startTime = startTime || now;
 			index++;
 			throttled.call(startTime, now);
@@ -219,7 +219,7 @@ test('{ noLeading: false }', function () {
 
 	execManyTimes(
 		function () {
-			let now = Number(new Date());
+			let now = Date.now();
 			startTime = startTime || now;
 			index++;
 			throttled.call(startTime, now);
@@ -273,7 +273,7 @@ test('{ noLeading: true }', function () {
 
 	execManyTimes(
 		function () {
-			let now = Number(new Date());
+			let now = Date.now();
 			startTime = startTime || now;
 			index++;
 			throttled.call(startTime, now);
@@ -326,7 +326,7 @@ test('{ noLeading: true, noTrailing: true }', function () {
 
 	execManyTimes(
 		function () {
-			let now = Number(new Date());
+			let now = Date.now();
 			startTime = startTime || now;
 			throttled.call(startTime, now);
 		},
@@ -380,7 +380,7 @@ test('delay, callback', function () {
 	let index = 0;
 	let array = [];
 	let function_ = function () {
-		array.push(Number(new Date()));
+		array.push(Date.now());
 	};
 	let debounced = debounce(delay, function_);
 
@@ -392,13 +392,13 @@ test('delay, callback', function () {
 
 	execManyTimes(
 		function () {
-			startTime = startTime || Number(new Date());
+			startTime = startTime || Date.now();
 			index++;
 			debounced.call();
 		},
 		function (callback) {
 			let length_ = array.length;
-			let doneTime = Number(new Date());
+			let doneTime = Date.now();
 
 			setTimeout(function () {
 				// Console.log( arr[0] - doneTime );
@@ -426,7 +426,7 @@ test('delay, false, callback', function () {
 	let index = 0;
 	let array = [];
 	let function_ = function () {
-		array.push(Number(new Date()));
+		array.push(Date.now());
 	};
 	let debounced = debounce(delay, false, function_);
 
@@ -438,13 +438,13 @@ test('delay, false, callback', function () {
 
 	execManyTimes(
 		function () {
-			startTime = startTime || Number(new Date());
+			startTime = startTime || Date.now();
 			index++;
 			debounced.call();
 		},
 		function (callback) {
 			let length_ = array.length;
-			let doneTime = Number(new Date());
+			let doneTime = Date.now();
 
 			setTimeout(function () {
 				// Console.log( arr[0] - doneTime );
@@ -472,7 +472,7 @@ test('delay, true, callback', function () {
 	let index = 0;
 	let array = [];
 	let function_ = function () {
-		array.push(Number(new Date()));
+		array.push(Date.now());
 	};
 	let debounced = debounce(delay, true, function_);
 
@@ -484,7 +484,7 @@ test('delay, true, callback', function () {
 
 	execManyTimes(
 		function () {
-			startTime = startTime || Number(new Date());
+			startTime = startTime || Date.now();
 			index++;
 			debounced.call();
 		},
@@ -517,7 +517,7 @@ test('cancel', function () {
 	let index = 0;
 	let array = [];
 	let function_ = function () {
-		array.push(Number(new Date()));
+		array.push(Date.now());
 	};
 	let debounced = debounce(delay, true, function_);
 
@@ -532,7 +532,7 @@ test('cancel', function () {
 	}, delay / 2);
 	execManyTimes(
 		function () {
-			startTime = startTime || Number(new Date());
+			startTime = startTime || Date.now();
 			index++;
 			debounced.call();
 		},
