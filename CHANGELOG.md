@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [4.0.0][] - 2022-04-11
+
 ### Changed
 
 -   **Breaking**: Updated browser support, check
@@ -51,4 +53,5 @@
 [2.3.0]: https://github.com/niksy/throttle-debounce/tree/v2.3.0
 [3.0.0]: https://github.com/niksy/throttle-debounce/tree/v3.0.0
 [3.0.1]: https://github.com/niksy/throttle-debounce/tree/v3.0.1
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.1...HEAD
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/niksy/throttle-debounce/tree/v4.0.0
