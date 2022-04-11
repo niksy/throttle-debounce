@@ -1,9 +1,5 @@
 # throttle-debounce
 
-> **Main branch shows codebase for yet unreleased new major version, see
-> [latest stable version](https://github.com/niksy/throttle-debounce/tree/v3.0.1)
-> for documentation.**
-
 [![Build Status][ci-img]][ci]
 [![BrowserStack Status][browserstack-img]][browserstack]
 [![Mentioned in Awesome Micro npm Packages][awesome-img]][awesome]

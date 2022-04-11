@@ -2,6 +2,14 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   **Breaking**: Updated browser support, check
+    [Browserslist configuration](https://browserslist.dev/?q=bGFzdCAzIG1ham9yIHZlcnNpb25zLCBzaW5jZSAyMDE5LCBlZGdlID49IDE1LCBub3QgaWUgPiAw)
+-   **Breaking**: All additional options such as `noLeading`, `noTrailing` and
+    `debounceMode` are now part of options object instead of function arguments
+-   Upgrade package
+
 ## [3.0.1][] - 2020-11-02
 
 ### Fixed
@@ -41,8 +49,6 @@
 
 [2.2.1]: https://github.com/niksy/throttle-debounce/tree/v2.2.1
 [2.3.0]: https://github.com/niksy/throttle-debounce/tree/v2.3.0
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v2.3.0...HEAD
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.0...HEAD
 [3.0.0]: https://github.com/niksy/throttle-debounce/tree/v3.0.0
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.1...HEAD
 [3.0.1]: https://github.com/niksy/throttle-debounce/tree/v3.0.1
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v3.0.1...HEAD
