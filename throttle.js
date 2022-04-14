@@ -97,7 +97,9 @@ export default function (delay, callback, options) {
 				 * to execute after `delay` ms.
 				 */
 				lastExec = Date.now();
-				timeoutID = setTimeout(debounceMode ? clear : exec, delay);
+				if (!noTrailing) {
+					timeoutID = setTimeout(debounceMode ? clear : exec, delay);
+				}
 			} else {
 				/*
 				 * In throttle mode without noLeading, if `delay` time has been exceeded, execute
