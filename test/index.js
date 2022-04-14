@@ -372,7 +372,7 @@ test('cancel', function () {
 
 module('debounce');
 
-test('delay, callback', function () {
+test('no option', function () {
 	expect(5);
 	stop();
 
@@ -418,7 +418,7 @@ test('delay, callback', function () {
 	);
 });
 
-test('delay, false, callback', function () {
+test('{ atBegin: false }', function () {
 	expect(5);
 	stop();
 
@@ -428,7 +428,7 @@ test('delay, false, callback', function () {
 	let function_ = function () {
 		array.push(Date.now());
 	};
-	let debounced = debounce(delay, false, function_);
+	let debounced = debounce(delay, function_, { atBegin: false });
 
 	equals(
 		debounced.guid,
@@ -464,7 +464,7 @@ test('delay, false, callback', function () {
 	);
 });
 
-test('delay, true, callback', function () {
+test('{ atBegin: true }', function () {
 	expect(5);
 	stop();
 
@@ -474,7 +474,7 @@ test('delay, true, callback', function () {
 	let function_ = function () {
 		array.push(Date.now());
 	};
-	let debounced = debounce(delay, true, function_);
+	let debounced = debounce(delay, function_, { atBegin: true });
 
 	equals(
 		debounced.guid,
@@ -519,7 +519,7 @@ test('cancel', function () {
 	let function_ = function () {
 		array.push(Date.now());
 	};
-	let debounced = debounce(delay, true, function_);
+	let debounced = debounce(delay, function_, { atBegin: true });
 
 	equals(
 		debounced.guid,
