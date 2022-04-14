@@ -112,6 +112,20 @@ debounceFunc.cancel();
 
 The logic that is being throttled or debounced will no longer be called.
 
+To cancel only one upcoming debounced call, you can pass `true` to 
+`cancel` function:
+```js
+const debounceFunc = debounce(300, () => {
+	// Debounced function
+});
+
+debounceFunc(); // will not be invoked
+
+debounceFunc.cancel(true);
+
+debounceFunc(); // will be invoked
+```
+
 ## API
 
 ### throttle(delay, callback, { noLeading, noTrailing, debounceMode })
