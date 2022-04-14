@@ -304,6 +304,33 @@ test('{ noLeading: true }', function () {
 	);
 });
 
+test('single call with { noLeading: true }', function () {
+	expect(2);
+
+	let startTime;
+	let index = 0;
+	let array = [];
+	let function_ = function (now) {
+		array.push(now - this);
+	};
+	let throttled = throttle(delay, function_, {
+		noLeading: true
+	});
+
+	let now = Date.now();
+	startTime = startTime || now;
+	index++;
+	throttled.call(startTime, now);
+
+	ok(array.length === 0, 'callback should NOT be executed immediately');
+	stop();
+
+	setTimeout(function () {
+		start();
+		ok(array.length === 1, 'callback should be executed later');
+	}, delay * 2);
+});
+
 test('{ noLeading: true, noTrailing: true }', function () {
 	expect(3);
 	stop();
