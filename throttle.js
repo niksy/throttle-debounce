@@ -46,9 +46,9 @@ export default function (delay, callback, options) {
 	}
 
 	// Function to cancel next exec
-	function cancel() {
+	function cancel(upcomingOnly) {
 		clearExistingTimeout();
-		cancelled = true;
+		cancelled = !upcomingOnly;
 	}
 
 	/*
