@@ -2,6 +2,11 @@
 
 ## [Unreleased][]
 
+### Fixed
+
+-   Throttle invocation with
+    `{ noLeading: true, noTrailing: true }`([#55](https://github.com/niksy/throttle-debounce/pull/55))
+
 ### Added
 
 -   Support for running non-BrowserStack tests (headless browsers tests) in CI
