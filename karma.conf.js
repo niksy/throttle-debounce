@@ -7,10 +7,9 @@ let config;
 
 const isCI =
 	typeof process.env.CI !== 'undefined' && process.env.CI !== 'false';
-const isPR =
-	typeof process.env.GITHUB_HEAD_REF !== 'undefined' &&
-	process.env.GITHUB_HEAD_REF !== '';
-const local = !isCI || (isCI && isPR);
+const local =
+	!isCI ||
+	(isCI && typeof process.env.BROWSER_STACK_ACCESS_KEY === 'undefined');
 
 const port = 0;
 

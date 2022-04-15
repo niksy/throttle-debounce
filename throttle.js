@@ -93,9 +93,13 @@ export default function (delay, callback, options) {
 			if (noLeading) {
 				/*
 				 * In throttle mode with noLeading, if `delay` time has
-				 * been exceeded, update `lastExec`.
+				 * been exceeded, update `lastExec` and schedule `callback`
+				 * to execute after `delay` ms.
 				 */
 				lastExec = Date.now();
+				if (!noTrailing) {
+					timeoutID = setTimeout(debounceMode ? clear : exec, delay);
+				}
 			} else {
 				/*
 				 * In throttle mode without noLeading, if `delay` time has been exceeded, execute
