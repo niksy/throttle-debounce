@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Added
+
+-   Support for running non-BrowserStack tests (headless browsers tests) in CI
+
 ## [4.0.0][] - 2022-04-11
 
 ### Changed
