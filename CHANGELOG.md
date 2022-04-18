@@ -11,6 +11,12 @@
 
 -   Support for running non-BrowserStack tests (headless browsers tests) in CI
 
+### Changed
+
+-   **Breaking**: The optional argument `atBegin` of debounce is now a part of
+    options object instead of a function argument so that debounce API is
+    normalized with throttle API.
+
 ## [4.0.0][] - 2022-04-11
 
 ### Changed
