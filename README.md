@@ -112,8 +112,9 @@ debounceFunc.cancel();
 
 The logic that is being throttled or debounced will no longer be called.
 
-To cancel only one upcoming debounced call, you can pass `true` to 
-`cancel` function:
+To cancel only one upcoming debounced call, you can pass `upcomingOnly: true`
+option to `cancel` function:
+
 ```js
 const debounceFunc = debounce(300, () => {
 	// Debounced function
@@ -121,7 +122,7 @@ const debounceFunc = debounce(300, () => {
 
 debounceFunc(); // will not be invoked
 
-debounceFunc.cancel(true);
+debounceFunc.cancel({ upcomingOnly: true });
 
 debounceFunc(); // will be invoked
 ```
@@ -231,7 +232,7 @@ support).
 
 <!-- prettier-ignore-start -->
 
-**Original module license:** Copyright (c) 2010 "Cowboy" Ben Alman (Dual licensed under the MIT and GPL licenses. http://benalman.com/about/license/)  
+**Original module license:** Copyright (c) 2010 "Cowboy" Ben Alman (Dual licensed under the MIT and GPL licenses. http://benalman.com/about/license/)
 **This module license:** MIT © [Ivan Nikolić](http://ivannikolic.com)
 
 [ci]: https://github.com/niksy/throttle-debounce/actions?query=workflow%3ACI

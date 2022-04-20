@@ -585,14 +585,14 @@ test('cancel (running only)', function () {
 
 	let array = [];
 	let function_ = function () {
-		array.push(Number(new Date()));
+		array.push(Date.now());
 	};
 	let debounced = debounce(delay, function_);
 
 	debounced.call();
 
 	setTimeout(function () {
-		debounced.cancel(true);
+		debounced.cancel({ upcomingOnly: true });
 	}, delay / 2);
 
 	setTimeout(function () {
