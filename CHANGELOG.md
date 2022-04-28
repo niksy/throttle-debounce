@@ -8,6 +8,11 @@
     options object instead of a function argument so that debounce API is
     normalized with throttle API.
 
+### Added
+
+-   Option to cancel only upcoming invocation
+    ([#44](https://github.com/niksy/throttle-debounce/pull/44))
+
 ## [4.0.1][] - 2022-04-15
 
 ### Fixed
@@ -18,8 +23,6 @@
 ### Added
 
 -   Support for running non-BrowserStack tests (headless browsers tests) in CI
--   Option to cancel only upcoming invocation
-    ([#44](https://github.com/niksy/throttle-debounce/pull/44))
 
 ## [4.0.0][] - 2022-04-11
 
