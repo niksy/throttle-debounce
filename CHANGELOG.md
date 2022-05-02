@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [5.0.0][] - 2022-05-02
+
 ### Changed
 
 -   **Breaking**: The optional argument `atBegin` of debounce is now a part of
@@ -76,5 +78,6 @@
 [3.0.0]: https://github.com/niksy/throttle-debounce/tree/v3.0.0
 [3.0.1]: https://github.com/niksy/throttle-debounce/tree/v3.0.1
 [4.0.0]: https://github.com/niksy/throttle-debounce/tree/v4.0.0
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v4.0.1...HEAD
 [4.0.1]: https://github.com/niksy/throttle-debounce/tree/v4.0.1
+[unreleased]: https://github.com/niksy/throttle-debounce/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/niksy/throttle-debounce/tree/v5.0.0
