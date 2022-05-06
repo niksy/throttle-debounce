@@ -18,6 +18,9 @@ npm install throttle-debounce --save
 
 ## Usage
 
+> Api changes after version v4.0.1, Unable to be backward compatible,
+> for previous usage please see [v3.0.1 document](https://github.com/niksy/throttle-debounce/tree/v3.0.1)
+
 ### `throttle`
 
 ```js
@@ -128,6 +131,9 @@ debounceFunc(); // will be invoked
 ```
 
 ## API
+
+> API changes after version v4.0.1, Unable to be backward compatible,
+> for previous api please see [v3.0.1 document](https://github.com/niksy/throttle-debounce/tree/v3.0.1)
 
 ### throttle(delay, callback, { noLeading, noTrailing, debounceMode })
 
