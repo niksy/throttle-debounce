@@ -232,8 +232,7 @@ support).
 
 <!-- prettier-ignore-start -->
 
-**Original module license:** Copyright (c) 2010 "Cowboy" Ben Alman (Dual licensed under the MIT and GPL licenses. http://benalman.com/about/license/)  
-**This module license:** MIT © [Ivan Nikolić](http://ivannikolic.com)
+MIT © [Ivan Nikolić](http://ivannikolic.com)
 
 [ci]: https://github.com/niksy/throttle-debounce/actions?query=workflow%3ACI
 [ci-img]: https://github.com/niksy/throttle-debounce/workflows/CI/badge.svg?branch=master

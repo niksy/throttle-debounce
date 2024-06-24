@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   License to single license (MIT)
+
 ## [5.0.0][] - 2022-05-02
 
 ### Changed
