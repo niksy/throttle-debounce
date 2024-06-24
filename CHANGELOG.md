@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [5.0.2][] - 2024-06-24
+
 ### Fixed
 
 -   Pin karma-webpack to specific version to prevent errors in Node 12
@@ -90,5 +92,6 @@
 [4.0.0]: https://github.com/niksy/throttle-debounce/tree/v4.0.0
 [4.0.1]: https://github.com/niksy/throttle-debounce/tree/v4.0.1
 [5.0.0]: https://github.com/niksy/throttle-debounce/tree/v5.0.0
-[Unreleased]: https://github.com/niksy/throttle-debounce/compare/v5.0.1...HEAD
+[Unreleased]: https://github.com/niksy/throttle-debounce/compare/v5.0.2...HEAD
+[5.0.2]: https://github.com/niksy/throttle-debounce/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/niksy/throttle-debounce/tree/v5.0.1

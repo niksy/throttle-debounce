@@ -1,6 +1,6 @@
 {
   "name": "throttle-debounce",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Throttle and debounce functions.",
   "license": "MIT",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
