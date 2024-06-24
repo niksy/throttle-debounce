@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [5.0.1][] - 2024-06-24
+
 ### Changed
 
 -   License to single license (MIT)
@@ -83,5 +85,6 @@
 [3.0.1]: https://github.com/niksy/throttle-debounce/tree/v3.0.1
 [4.0.0]: https://github.com/niksy/throttle-debounce/tree/v4.0.0
 [4.0.1]: https://github.com/niksy/throttle-debounce/tree/v4.0.1
-[unreleased]: https://github.com/niksy/throttle-debounce/compare/v5.0.0...HEAD
 [5.0.0]: https://github.com/niksy/throttle-debounce/tree/v5.0.0
+[Unreleased]: https://github.com/niksy/throttle-debounce/compare/v5.0.1...HEAD
+[5.0.1]: https://github.com/niksy/throttle-debounce/tree/v5.0.1
