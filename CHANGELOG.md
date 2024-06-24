@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Fixed
+
+-   Pin karma-webpack to specific version to prevent errors in Node 12
+
 ## [5.0.1][] - 2024-06-24
 
 ### Changed
