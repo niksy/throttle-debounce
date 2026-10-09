@@ -49,6 +49,7 @@ export default function (delay, callback, options) {
 	function cancel(options) {
 		const { upcomingOnly = false } = options || {};
 		clearExistingTimeout();
+		timeoutID = undefined;
 		cancelled = !upcomingOnly;
 	}
 

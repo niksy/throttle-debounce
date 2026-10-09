@@ -579,6 +579,45 @@ test('cancel', function () {
 	);
 });
 
+test('cancel (running only, at begin)', function () {
+	expect(3);
+	stop();
+
+	let calls = [];
+	let debounced = debounce(
+		delay,
+		function (value) {
+			calls.push(value);
+		},
+		{ atBegin: true }
+	);
+
+	debounced('first');
+	debounced.cancel({ upcomingOnly: true });
+	equals(calls.length, 1, 'first callback should execute immediately');
+
+	setTimeout(function () {
+		debounced('second');
+		debounced('ignored');
+		equals(
+			calls.join(','),
+			'first,second',
+			'next burst should execute its first call'
+		);
+
+		setTimeout(function () {
+			debounced('third');
+			equals(
+				calls.join(','),
+				'first,second,third',
+				'later bursts should still execute'
+			);
+			debounced.cancel();
+			start();
+		}, delay * 2);
+	}, delay * 2);
+});
+
 test('cancel (running only)', function () {
 	expect(2);
 	stop();
